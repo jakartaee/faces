@@ -12,6 +12,9 @@ pre-Jakarta Faces specification under the JCP.
 
 This release contains the following backwards compatible changes:
 
+* Issue ID {issue_tracker_url}2243[2243] +
+Spec: render into _jakarta.faces.Resource_ only the component resources added during the current request, select the named ones by their component renderer type instead of the renderer type derived from their resource name, and also render the nameless ones, and define when an element of _jakarta.faces.Resource_ is absent in the document and therefore appended
+
 * Issue ID {issue_tracker_url}2242[2242] +
 Spec: allow a resource name to carry a query string, and specify how it is removed from the resource identifier and appended to the resource URL
 

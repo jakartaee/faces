@@ -25,7 +25,10 @@ import jakarta.faces.application.StateManager;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
+import jakarta.faces.view.StateManagementStrategy;
 
 /**
  * <p>
@@ -269,10 +272,30 @@ public abstract class PartialViewContext {
      * <ol>
      * <li>If {@link #isResetValues()} returns <code>true</code>, then call
      * {@link UIViewRoot#resetValues(FacesContext, Collection, jakarta.faces.component.visit.VisitHint...)}, passing {@link #getRenderIds()}.</li>
-     * <li>If {@link #isRenderAll()} returns <code>false</code>, then render any component resource of {@link UIViewRoot} whose
-     * {@link ResourceHandler#getRendererTypeForResourceName(String)} does not return <code>null</code>, and whose {@link UIComponent#getChildCount()} is zero,
-     * and whose {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns <code>false</code>, in an <code>update</code> element with an
-     * identifier of <code>jakarta.faces.Resource</code>.</li>
+     * <li><span class="changed_modified_5_0">If {@link #isRenderAll()} returns <code>false</code>, then render each component resource of
+     * {@link UIViewRoot#getComponentResources(FacesContext)} which was added to the view during the current request, and which matches one of the following.
+     * Render them in an <code>update</code> element with an identifier of <code>jakarta.faces.Resource</code>.</span>
+     * <ul>
+     * <li class="changed_modified_5_0">its <code>name</code> entry in {@link UIComponent#getAttributes()} is not <code>null</code>, its
+     * {@link UIComponent#getRendererType()} is not <code>null</code>, its {@link UIComponent#getChildCount()} is zero, and
+     * {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns <code>false</code> for it;</li>
+     * <li class="changed_added_5_0">its <code>name</code> entry in {@link UIComponent#getAttributes()} is <code>null</code>.
+     * {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} does not apply to it, because it has no name.</li>
+     * </ul>
+     * <p class="changed_added_5_0">
+     * If no component resource matches, no such <code>update</code> element is rendered.
+     * </p>
+     * <p class="changed_added_5_0">
+     * A component resource counts as added during the current request if that component instance was not yet in
+     * {@link UIViewRoot#getComponentResources(FacesContext)} at the moment the <em>Restore View</em> phase restored or obtained the view, before any
+     * {@link PhaseListener#afterPhase(PhaseEvent)} of that phase is called. In particular, a component resource which a build time condition adds only in
+     * the build which precedes the <em>Render Response</em> phase counts as added during the current request, because the restoring build reproduces the
+     * decisions of the build which rendered the view, see {@link StateManagementStrategy}. If {@link FacesContext#isPostback()} returns <code>false</code>, no
+     * component resource counts as added during the current request. Neither does any component resource count as added while
+     * {@link FacesContext#getViewRoot()} does not return the {@link UIViewRoot} which the <em>Restore View</em> phase restored or obtained, for example after
+     * navigation to a new instance of the same view.
+     * </p>
+     * </li>
      * <li>Process the components.</li>
      * <li>Obtain the state by calling {@link StateManager#getViewState} and write it out as an <code>update</code> element with an identifier of
      * <code>&lt;VIEW_ROOT_CONTAINER_CLIENT_ID&gt;&lt;SEP&gt;jakarta.faces.ViewState</code> where <code>&lt;VIEW_ROOT_CONTAINER_CLIENT_ID&gt;</code> is the
