@@ -288,12 +288,12 @@ public abstract class PartialViewContext {
      * <p class="changed_added_5_0">
      * A component resource counts as added during the current request if that component instance was not yet in
      * {@link UIViewRoot#getComponentResources(FacesContext)} at the moment the <em>Restore View</em> phase restored or obtained the view, before any
-     * {@link PhaseListener#afterPhase(PhaseEvent)} of that phase is called. In particular, a component resource which a build time condition adds only in
-     * the build which precedes the <em>Render Response</em> phase counts as added during the current request, because the restoring build reproduces the
-     * decisions of the build which rendered the view, see {@link StateManagementStrategy}. If {@link FacesContext#isPostback()} returns <code>false</code>, no
-     * component resource counts as added during the current request. Neither does any component resource count as added while
-     * {@link FacesContext#getViewRoot()} does not return the {@link UIViewRoot} which the <em>Restore View</em> phase restored or obtained, for example after
-     * navigation to a new instance of the same view.
+     * {@link PhaseListener#afterPhase(PhaseEvent)} of that phase is called. In particular, a component resource which a build time condition adds only in the
+     * build which precedes the <em>Render Response</em> phase counts as added during the current request, because the restoring build reproduces the decisions
+     * of the build which rendered the view, see {@link StateManagementStrategy}. If {@link FacesContext#isPostback()} returns <code>false</code>, no component
+     * resource counts as added during the current request. Neither does any component resource count as added while {@link FacesContext#getViewRoot()} does not
+     * return the {@link UIViewRoot} which the <em>Restore View</em> phase restored or obtained, for example after navigation to a new instance of the same
+     * view.
      * </p>
      * </li>
      * <li>Process the components.</li>

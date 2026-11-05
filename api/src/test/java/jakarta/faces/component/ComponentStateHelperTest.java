@@ -18,12 +18,18 @@ package jakarta.faces.component;
 
 import static java.util.Comparator.comparing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import jakarta.el.ValueExpression;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.component.html.HtmlPanelGroup;
 import jakarta.faces.context.FacesContext;
@@ -92,6 +98,95 @@ class ComponentStateHelperTest {
     }
 
     /**
+     * The delta of an attribute set after the build carries the attribute only: the restore records it in the attributesThatAreSet list again.
+     */
+    @Test
+    void anAttributeSetAfterTheBuildSavesNoAttributesThatAreSet() {
+        FacesContext context = mock(FacesContext.class);
+
+        HtmlOutputText saved = new HtmlOutputText();
+        saved.markInitialState();
+        saved.setStyleClass("changed");
+        Object[] delta = (Object[]) saved.getStateHelper().saveState(context);
+
+        assertFalse(Arrays.asList(delta).contains(UIComponent.PropertyKeysPrivate.attributesThatAreSet), Arrays.deepToString(delta));
+
+        HtmlOutputText restored = new HtmlOutputText();
+        restored.markInitialState();
+        restored.getStateHelper().restoreState(context, delta);
+
+        assertEquals("changed", restored.getStyleClass());
+        assertTrackedAttributes(restored, "styleClass");
+    }
+
+    /**
+     * An attribute bound after the build, following another one set after the build, is recorded once in the attributesThatAreSet list, before and after a
+     * restore. A name recorded twice renders its HTML attribute twice.
+     */
+    @Test
+    void anAttributeBoundAfterAnAttributeSetAfterTheBuildIsRecordedOnce() {
+        FacesContext context = mock(FacesContext.class);
+
+        HtmlOutputText saved = new HtmlOutputText();
+        saved.markInitialState();
+        saved.setStyleClass("changed");
+        saved.setValueExpression("title", nonLiteral());
+        assertTrackedAttributes(saved, "styleClass", "title");
+
+        HtmlOutputText restored = new HtmlOutputText();
+        restored.markInitialState();
+        restored.getStateHelper().restoreState(context, saved.getStateHelper().saveState(context));
+
+        assertTrackedAttributes(restored, "styleClass", "title");
+    }
+
+    /**
+     * An attribute set and an attribute bound after the build, and both cleared again, are recorded neither in the attributesThatAreSet list nor in it after a
+     * restore.
+     */
+    @Test
+    void attributesClearedAfterTheBuildAreNotRecorded() {
+        FacesContext context = mock(FacesContext.class);
+
+        HtmlOutputText saved = new HtmlOutputText();
+        saved.markInitialState();
+        saved.setStyleClass("changed");
+        saved.setValueExpression("title", nonLiteral());
+        saved.setStyleClass(null);
+        saved.setValueExpression("title", null);
+        assertTrackedAttributes(saved);
+
+        HtmlOutputText restored = new HtmlOutputText();
+        restored.markInitialState();
+        restored.getStateHelper().restoreState(context, saved.getStateHelper().saveState(context));
+
+        assertTrackedAttributes(restored);
+    }
+
+    /**
+     * Only a standard component records each restored property in the attributesThatAreSet list again, so the list created after the build of any other
+     * component is part of its delta.
+     */
+    @Test
+    void theAttributesThatAreSetOfANonStandardComponentAreSaved() {
+        FacesContext context = mock(FacesContext.class);
+
+        NonStandardComponent saved = new NonStandardComponent();
+        saved.markInitialState();
+        saved.getAttributes().put(PackageUtils.ATTRIBUTES_THAT_ARE_SET, new ArrayList<>(List.of("title")));
+        Object[] delta = (Object[]) saved.getStateHelper().saveState(context);
+
+        assertNotNull(delta);
+        assertTrue(Arrays.asList(delta).contains(UIComponent.PropertyKeysPrivate.attributesThatAreSet), Arrays.deepToString(delta));
+    }
+
+    private static ValueExpression nonLiteral() {
+        ValueExpression expression = mock(ValueExpression.class);
+        when(expression.isLiteralText()).thenReturn(false);
+        return expression;
+    }
+
+    /**
      * Returns the saved state with the {@code attributesThatAreSet} entry moved to the end, so restoring replays every property before it.
      */
     private static Object[] trackedListLast(Object state) {
@@ -119,7 +214,8 @@ class ComponentStateHelperTest {
 
     @SuppressWarnings("unchecked")
     private static List<String> trackedAttributes(UIComponent component) {
-        return (List<String>) component.getAttributes().get(PackageUtils.ATTRIBUTES_THAT_ARE_SET);
+        List<String> tracked = (List<String>) component.getAttributes().get(PackageUtils.ATTRIBUTES_THAT_ARE_SET);
+        return tracked == null ? List.of() : tracked;
     }
 
 }

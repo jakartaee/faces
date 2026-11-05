@@ -57,6 +57,7 @@ class PackageUtils {
     static final String MARK_CREATED = "facelets.MARK_ID";
     static final String MARK_DELETED = "facelets.MARK_DELETED";
     static final String DYNAMIC_COMPONENT = "facelets.DYNAMIC_COMPONENT";
+    static final String DYNAMIC_CHILD_COUNT = "org.glassfish.mojarra.DynamicChildCount";
     static final String FACET_NAME = "facelets.FACET_NAME";
 
     // The attributes map key under which the implementation reads the list of attributes that have been explicitly set
@@ -66,6 +67,13 @@ class PackageUtils {
     // Literals, so that all of them are the same interned instance.
     static final String ATTRIBUTES_THAT_ARE_SET = "jakarta.faces.component.UIComponentBase.attributesThatAreSet";
     static final String STANDARD_COMPONENT_PACKAGE = "jakarta.faces.component.";
+
+    /**
+     * Whether the given component is a standard component, the only kind which records its set attributes in the {@link #ATTRIBUTES_THAT_ARE_SET} list.
+     */
+    static boolean isStandardComponent(UIComponent component) {
+        return component.getClass().getName().startsWith(STANDARD_COMPONENT_PACKAGE);
+    }
 
     // Per-class InjectionTarget cache, keyed weakly by BeanManager so a redeployed application's targets are
     // released together with its (now unreferenced) bean manager.

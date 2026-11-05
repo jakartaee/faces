@@ -149,8 +149,7 @@ class Spec2243IT extends BaseITNG {
     }
 
     /**
-     * A named stylesheet whose name carries a query string, which is added during an ajax request, applies, and is not rendered again on the next ajax
-     * request.
+     * A named stylesheet whose name carries a query string, which is added during an ajax request, applies, and is not rendered again on the next ajax request.
      *
      * @see jakarta.faces.context.PartialViewContext#processPartial(jakarta.faces.event.PhaseId)
      * @see https://github.com/jakartaee/faces/issues/2243
