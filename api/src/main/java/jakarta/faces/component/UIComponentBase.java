@@ -1849,8 +1849,7 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     // Full-state restore deserializes the tree without re-running buildView, so the marker fields are synced
-    // from the restored attributes map here. Partial-state restore re-puts them via buildView instead. The two
-    // dynamic markers are only in the restored attributes map of state saved by an older version.
+    // from the restored attributes map here. Partial-state restore re-puts them via buildView instead.
     @SuppressWarnings("unchecked")
     private void restoreMarkersFromState() {
         Map<String, Object> attrs = (Map<String, Object>) getStateHelper().get(PropertyKeys.attributes);
@@ -1859,17 +1858,8 @@ public abstract class UIComponentBase extends UIComponent {
         }
         markCreated = (String) attrs.get(MARK_CREATED);
         facetName = (String) attrs.get(FACET_NAME);
-        dynamicComponent = removeRestoredMarker(DYNAMIC_COMPONENT);
-        dynamicChildCount = removeRestoredMarker(DYNAMIC_CHILD_COUNT);
         markDeleted = Boolean.TRUE.equals(attrs.get(MARK_DELETED));
         setCompositeComponentFlag(attrs.containsKey(COMPONENT_RESOURCE_KEY));
-    }
-
-    // A field-only marker is in a restored state map only when an older version saved it; drop it so it is not
-    // saved again.
-    private Object removeRestoredMarker(String key) {
-        getStateHelper().remove(PropertyKeysPrivate.attributesThatAreSet, key);
-        return getStateHelper().remove(PropertyKeys.attributes, key);
     }
 
     private void doPostAddProcessing(FacesContext context, UIComponent added) {
@@ -2519,8 +2509,8 @@ public abstract class UIComponentBase extends UIComponent {
                 throw new NullPointerException();
             }
             boolean marker = component.markerRemove(key);
-            // MARK_CREATED and the dynamic markers can be in a restored state map: state saved by an older version.
-            if (marker && (MARK_DELETED.equals(key) || FACET_NAME.equals(key))) {
+            // MARK_CREATED can be in a restored state map, as full state saving re-attaches it there.
+            if (marker && !MARK_CREATED.equals(key)) {
                 return null;
             }
             if (ATTRIBUTES_THAT_ARE_SET.equals(key)) {

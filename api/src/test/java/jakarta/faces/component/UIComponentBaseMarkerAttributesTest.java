@@ -145,25 +145,4 @@ class UIComponentBaseMarkerAttributesTest {
         assertFalse(restored.getAttributes().containsKey(DYNAMIC_CHILD_COUNT));
     }
 
-    /**
-     * State saved by a version which kept the dynamic markers in the attributes map restores them, as field-only markers which are not saved again.
-     */
-    @Test
-    void fullStateHoldingDynamicMarkersRestoresThemAsFieldOnlyMarkers() {
-        FacesContext context = mock(FacesContext.class);
-        UIPanel saved = new UIPanel();
-        saved.getStateHelper().put(UIComponent.PropertyKeys.attributes, DYNAMIC_COMPONENT, 0);
-        saved.getStateHelper().put(UIComponent.PropertyKeys.attributes, DYNAMIC_CHILD_COUNT, 1);
-        saved.getStateHelper().add(UIComponent.PropertyKeysPrivate.attributesThatAreSet, DYNAMIC_COMPONENT);
-        saved.getStateHelper().add(UIComponent.PropertyKeysPrivate.attributesThatAreSet, DYNAMIC_CHILD_COUNT);
-
-        UIPanel restored = new UIPanel();
-        restored.restoreState(context, saved.saveState(context));
-
-        assertEquals(0, restored.getAttributes().get(DYNAMIC_COMPONENT));
-        assertEquals(1, restored.getAttributes().get(DYNAMIC_CHILD_COUNT));
-        assertEquals(Set.of(), restored.getAttributes().keySet());
-        assertNull(restored.getStateHelper().get(UIComponent.PropertyKeysPrivate.attributesThatAreSet));
-    }
-
 }
