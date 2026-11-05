@@ -1189,7 +1189,7 @@ meth public void setValue(java.lang.Object)
 meth public void setValueExpression(java.lang.String,jakarta.el.ValueExpression)
 meth public void setVar(java.lang.String)
 supr jakarta.faces.component.UIComponentBase
-hfds DATA_MODEL_CLASSES_MAP_BEAN_NAME,EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,childState,clientIdBuilder,isNested,iterationResetList,iterationStatefulList,model,oldVar,rowIndex
+hfds EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,childState,clientIdBuilder,isNested,iterationResetList,iterationStatefulList,model,oldVar,rowIndex
 hcls FacesDataModelAnnotationLiteral,PropertyKeys
 
 CLSS public jakarta.faces.component.UIForm
@@ -6220,6 +6220,7 @@ CLSS public abstract interface !annotation jakarta.faces.model.FacesDataModel
  anno 0 java.lang.annotation.Inherited()
  anno 0 java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy value=RUNTIME)
  anno 0 java.lang.annotation.Target(java.lang.annotation.ElementType[] value=[TYPE])
+fld public final static java.lang.String DATA_MODEL_CLASSES_MAP_NAME = "jakarta.faces.DATA_MODEL_CLASSES_MAP"
 innr public final static Literal
 intf java.lang.annotation.Annotation
 meth public abstract !hasdefault java.lang.Class<?> forClass()

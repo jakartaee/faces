@@ -22,6 +22,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Map;
 import java.util.Set;
 
 import jakarta.enterprise.util.AnnotationLiteral;
@@ -73,6 +74,12 @@ import jakarta.inject.Qualifier;
  *
  * <p>
  * The only requirement here is that <code>A</code> appears before <code>B</code>, since <code>A</code> is a subclass of <code>B</code>.
+ *
+ * <p class="changed_added_5_0">
+ * The runtime must make this collection available as a CDI bean named {@link #DATA_MODEL_CLASSES_MAP_NAME}. The bean types of this bean must include {@link Map}. Its
+ * keys are the classes wrapped by the registered DataModels, as indicated by {@link FacesDataModel#forClass()}, and its values are the classes of these
+ * DataModels. Iterating the map must follow the sorting described above. {@link UIData} and the other components defined by the Jakarta Faces Specification
+ * obtain the collection from this bean.
  *
  * <p>
  * The specification does not define a public method to obtain an instance of the "most specific DataModel for a given type". Such an instance can be obtained
@@ -190,6 +197,15 @@ public @interface FacesDataModel {
      * @return the type that the DataModel that is annotated with this annotation is able to wrap
      */
     Class<?> forClass() default Object.class;
+
+    /**
+     * <p class="changed_added_5_0">
+     * The name of the CDI bean which holds the collection of registered DataModels. See the class description.
+     * </p>
+     *
+     * @since 5.0
+     */
+    String DATA_MODEL_CLASSES_MAP_NAME = "jakarta.faces.DATA_MODEL_CLASSES_MAP";
 
     /**
      * <p class="changed_added_4_0">
