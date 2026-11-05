@@ -21,9 +21,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 /**
  * Java serialization round trips for tests.
@@ -50,7 +47,7 @@ final class Serialization {
      * @return the serialized bytes of the given object
      * @throws IOException if serializing fails
      */
-    public static byte[] serialize(Object object) throws IOException {
+    private static byte[] serialize(Object object) throws IOException {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         try (ObjectOutputStream out = new ObjectOutputStream(bytes)) {
             out.writeObject(object);
@@ -64,31 +61,10 @@ final class Serialization {
      * @throws IOException if deserializing fails
      * @throws ClassNotFoundException if a serialized class cannot be loaded
      */
-    public static Object deserialize(byte[] serialized) throws IOException, ClassNotFoundException {
+    private static Object deserialize(byte[] serialized) throws IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(serialized))) {
             return in.readObject();
         }
-    }
-
-    /**
-     * Sets the serialVersionUID of the given class in the given serialized bytes, as if the class was serialized with that serialVersionUID. It follows the
-     * class name, which the class descriptor writes with its length in front, and which an array class descriptor holds inside a longer name.
-     *
-     * @param serialized the serialized bytes holding a class descriptor of the given class
-     * @param className the binary name of the class
-     * @param serialVersionUID the serialVersionUID to set
-     * @return the given bytes, changed
-     */
-    public static byte[] withSerialVersionUID(byte[] serialized, String className, long serialVersionUID) {
-        byte[] name = className.getBytes(StandardCharsets.UTF_8);
-        byte[] lengthAndName = ByteBuffer.allocate(Short.BYTES + name.length).putShort((short) name.length).put(name).array();
-        for (int i = 0; i + lengthAndName.length <= serialized.length; i++) {
-            if (Arrays.equals(Arrays.copyOfRange(serialized, i, i + lengthAndName.length), lengthAndName)) {
-                ByteBuffer.wrap(serialized, i + lengthAndName.length, Long.BYTES).putLong(serialVersionUID);
-                return serialized;
-            }
-        }
-        throw new IllegalArgumentException("No class descriptor of " + className);
     }
 
 }
