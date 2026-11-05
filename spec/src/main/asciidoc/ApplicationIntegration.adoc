@@ -1501,6 +1501,18 @@ _createView()_ returns.
 
 [source,java]
 ----
+public Map<String, Object> createViewMap(FacesContext context);
+----
+
+Create and return a new _Map_ for the view
+scope of the current view. _UIViewRoot.getViewMap()_ calls this method
+when it creates its view map. The _Map_ must implement _StateHolder_,
+because _UIViewRoot_ saves and restores it as part of its own state.
+It saves only the state of the _Map_, never its entries. See the javadoc
+of _ViewHandler.createViewMap()_.
+
+[source,java]
+----
 public String getActionURL(FacesContext context, String viewId);
 ----
 
