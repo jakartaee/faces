@@ -20,11 +20,9 @@ package jakarta.faces.component;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableList;
 import static java.util.logging.Level.SEVERE;
-import static java.util.logging.Level.WARNING;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,9 +38,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
 import jakarta.el.MethodExpression;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.faces.FacesException;
 import jakarta.faces.FactoryFinder;
-import jakarta.faces.application.ProjectStage;
 import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.visit.VisitCallback;
@@ -212,6 +213,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      */
     public static final String UNIQUE_ID_PREFIX = "j_id";
 
+    /**
+     * <p class="changed_added_5_0">
+     * The name of the CDI bean which supplies a new view map. See {@link #getViewMap(boolean)}.
+     * </p>
+     *
+     * @since 5.0
+     */
+    public static final String VIEW_MAP_NAME = "jakarta.faces.VIEW_MAP";
+
     private static Lifecycle lifecycle;
 
     private static final Logger LOGGER = Logger.getLogger("jakarta.faces", "jakarta.faces.LogStrings");
@@ -223,10 +233,6 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         LOCATION_IDENTIFIER_MAP.put("form", LOCATION_IDENTIFIER_PREFIX + "FORM");
         LOCATION_IDENTIFIER_MAP.put("body", LOCATION_IDENTIFIER_PREFIX + "BODY");
     }
-
-    // TODO: can be dropped after https://github.com/jakartaee/faces/issues/2185
-    private static final String VIEW_MAP_ID_KEY = "org.glassfish.mojarra.application.view.viewMapId";
-    private static final String ACTIVE_VIEW_MAPS_KEY = "org.glassfish.mojarra.application.view.activeViewMaps";
 
     enum PropertyKeys {
         /**
@@ -270,8 +276,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      */
     private Doctype doctype;
 
-    // The view-scoped map. Not part of the saved component state (only its id is), so a plain field.
-    // The implementation correlates it to the session via VIEW_MAP_ID_KEY.
+    // Saved as a StateHolder by saveState.
     private Map<String, Object> viewMap;
 
     /**
@@ -1587,8 +1592,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      * <p class="changed_added_2_0">
      * <span class="changed_modified_2_2 changed_modified_2_3">Returns</span> a <code>Map</code> that acts as the interface to the data store that is the "view
-     * scope", or, if this instance does not have such a <code>Map</code> and the <code>create</code> argument is <code>true</code>, creates one and returns it.
-     * This map must be instantiated lazily and cached for return from subsequent calls to this method on this <code>UIViewRoot</code> instance.
+     * scope", or, if this instance does not have such a <code>Map</code> and the <code>create</code> argument is <code>true</code>, creates one
+     * <span class="changed_added_5_0">by obtaining a reference to the CDI bean named {@link #VIEW_MAP_NAME}</span> and returns it. This map must be
+     * instantiated lazily and cached for return from subsequent calls to this method on this <code>UIViewRoot</code> instance.
      * {@link jakarta.faces.application.Application#publishEvent} must be called, passing <span class="changed_added_2_3">the current <code>FacesContext</code>
      * as the first argument</span>, {@link PostConstructViewMapEvent}<code>.class</code> as the second argument,
      * <span class="changed_added_2_3"><code>UIViewRoot.class</code> as the third argument</span> and this <code>UIViewRoot</code> instance as the fourth
@@ -1600,6 +1606,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * The returned <code>Map</code> must be implemented such that calling <code>clear()</code> on the <code>Map</code> causes
      * {@link jakarta.faces.application.Application#publishEvent} to be called, passing {@link PreDestroyViewMapEvent}<code>.class</code> as the first argument
      * and this <code>UIViewRoot</code> instance as the second argument.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * The implementation provides the bean named {@link #VIEW_MAP_NAME}. Its scope must be {@link Dependent}, so that each reference is a new <code>Map</code>,
+     * and its bean types must include {@link Map}. The <code>Map</code> must implement {@link StateHolder}, must not be transient, and must have a public
+     * no-argument constructor. This <code>UIViewRoot</code> saves the <code>Map</code> as part of its own state: it saves the class of the <code>Map</code> and
+     * the result of {@link StateHolder#saveState}, never the entries of the <code>Map</code>. On restore, it creates a new instance of that class and passes
+     * the saved state to {@link StateHolder#restoreState}. A restored <code>Map</code> reconnects itself to the data store of the view scope. When that data
+     * store no longer exists, the restored <code>Map</code> must behave as a new, empty <code>Map</code>.
      * </p>
      *
      * <p class="changed_modified_2_0_rev_a">
@@ -1624,7 +1639,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      */
     public Map<String, Object> getViewMap(boolean create) {
         if (create && viewMap == null) {
-            viewMap = new ViewMap(getFacesContext().getApplication().getProjectStage());
+            viewMap = createViewMap();
             getFacesContext().getApplication().publishEvent(getFacesContext(), PostConstructViewMapEvent.class, UIViewRoot.class, this);
         }
 
@@ -1784,11 +1799,11 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             throw new NullPointerException();
         }
 
-        String viewMapId = (String) getTransientStateHelper().getTransient(VIEW_MAP_ID_KEY);
         Object superState = super.saveState(context);
+        Object viewMapState = viewMap != null ? new StateHolderSaver(context, viewMap) : null;
 
-        if (superState != null || viewMapId != null) {
-            values = new Object[] { superState, viewMapId };
+        if (superState != null || viewMapState != null) {
+            values = new Object[] { superState, viewMapState };
         }
 
         return values;
@@ -1815,22 +1830,25 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     // --------------------------------------------------------- Private Methods
 
     /**
-     * Restores the view map associated with the view map id in the saved state. {@link #restoreViewScopeState} invokes this up front so that view scoped beans
-     * are resolvable in EL while the view is being built; {@link #restoreState} invokes it only when that did not already happen. Rewiring it a second time
-     * would be destructive: when the saved view map is no longer among the active view maps, building the view mints a replacement whose id is held in the
-     * transient state, and restoring the saved id over it would orphan that replacement.
+     * Restores the view map from the saved state. {@link #restoreViewScopeState} invokes this up front so that view scoped beans are resolvable in EL while the
+     * view is being built; {@link #restoreState} invokes it only when that did not already happen. Restoring it a second time would replace the view map which
+     * the view build may meanwhile have registered anew.
      */
-    @SuppressWarnings("unchecked") // the session-stored view maps are cast back to their saved types.
+    @SuppressWarnings("unchecked") // the view map bean is specified to supply a Map<String, Object>.
     private void restoreViewMap(FacesContext context, Object[] state) {
-        String viewMapId = (String) state[1];
+        viewMap = state[1] != null ? (Map<String, Object>) ((StateHolderSaver) state[1]).restore(context) : null;
+    }
 
-        getTransientStateHelper().putTransient(VIEW_MAP_ID_KEY, viewMapId);
+    @SuppressWarnings("unchecked") // the view map bean is specified to supply a Map<String, Object>.
+    private static Map<String, Object> createViewMap() {
+        BeanManager beanManager = CDI.current().getBeanManager();
+        Bean<?> bean = beanManager.resolve(beanManager.getBeans(VIEW_MAP_NAME));
 
-        Map<String, Object> viewMaps = (Map<String, Object>) context.getExternalContext().getSessionMap().get(ACTIVE_VIEW_MAPS_KEY);
-
-        if (viewMaps != null) {
-            viewMap = (Map<String, Object>) viewMaps.get(viewMapId);
+        if (bean == null) {
+            throw new IllegalStateException("No CDI bean named " + VIEW_MAP_NAME + " supplies the view map");
         }
+
+        return (Map<String, Object>) beanManager.getReference(bean, Map.class, beanManager.createCreationalContext(bean));
     }
 
     private static String getIdentifier(String target) {
@@ -1854,43 +1872,5 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
         return facet != null ? facet.getChildren() : null;
     }
-
-    private static final class ViewMap extends HashMap<String, Object> {
-
-        private static final long serialVersionUID = -1L;
-
-        private final ProjectStage stage;
-
-        // -------------------------------------------------------- Constructors
-
-        ViewMap(ProjectStage stage) {
-            this.stage = stage;
-        }
-
-        // ---------------------------------------------------- Methods from Map
-
-        @Override
-        public void clear() {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.getApplication().publishEvent(context, PreDestroyViewMapEvent.class, UIViewRoot.class, context.getViewRoot());
-            super.clear();
-        }
-
-        @Override
-        public Object put(String key, Object value) {
-            if (value != null && ProjectStage.Development.equals(stage) && !(value instanceof Serializable)) {
-                LOGGER.log(WARNING, "warning.component.uiviewroot_non_serializable_attribute_viewmap", new Object[] { key, value.getClass().getName() });
-            }
-            return super.put(key, value);
-        }
-
-        @Override
-        public void putAll(Map<? extends String, ?> map) {
-            // the HashMap.putAll use an internal algorithm instead of the put method.
-            // We want that our putAll calls our put method to log the warn message
-            map.forEach(this::put);
-        }
-
-    } // END ViewMap
 
 }
