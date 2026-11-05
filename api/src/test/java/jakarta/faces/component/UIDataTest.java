@@ -18,15 +18,21 @@
 package jakarta.faces.component;
 
 import static jakarta.faces.component.NamingContainer.SEPARATOR_CHAR;
+import static jakarta.faces.component.Serialization.deserialize;
+import static jakarta.faces.component.Serialization.serialize;
+import static jakarta.faces.component.Serialization.serializeAndDeserialize;
+import static jakarta.faces.component.Serialization.withSerialVersionUID;
 import static jakarta.faces.component.UINamingContainer.SEPARATOR_CHAR_PARAM_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +46,8 @@ import org.junit.jupiter.api.Test;
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
 public class UIDataTest {
+
+    private static final long OLDER_SAVED_STATE_SERIAL_VERSION_UID = 2920252657338389849L;
 
     private static final ContextCallback NO_OP_CALLBACK = (context, target) -> {
     };
@@ -75,6 +83,72 @@ public class UIDataTest {
         data.markInitialState();
         data.setFirst(4);
         assertNotNull(data.saveState(context));
+    }
+
+    /**
+     * Without {@code rowStatePreserved}, there are no per-row delta states, and their slot in the saved state holds {@code null}, which restores as no per-row
+     * delta states.
+     */
+    @Test
+    public void emptyRowDeltaStatesAreSavedAsNull() {
+        FacesContext context = mock(FacesContext.class);
+        UIData data = new UIData();
+        data.markInitialState();
+        data.setFirst(4);
+
+        Object[] state = (Object[]) data.saveState(context);
+        assertNull(state[1]);
+
+        UIData restored = new UIData();
+        restored.markInitialState();
+        restored.restoreState(context, state);
+        assertEquals(4, restored.getFirst());
+        assertNull(((Object[]) restored.saveState(context))[1]);
+    }
+
+    /**
+     * A per-row state with every field at its default is restored at its defaults.
+     */
+    @Test
+    public void savedStateAtItsDefaultsRoundTrips() throws Exception {
+        SavedState restored = serializeAndDeserialize(new SavedState());
+
+        assertNull(restored.getSubmittedValue());
+        assertNull(restored.getValue());
+        assertFalse(restored.isLocalValueSet());
+        assertTrue(restored.isValid());
+        assertFalse(restored.getSubmitted());
+    }
+
+    /**
+     * A per-row state in the serialized form of an older version, which serializes every field, is not read, so the state helpers expire the view.
+     */
+    @Test
+    public void savedStateInTheSerializedFormOfAnOlderVersionIsNotRead() throws Exception {
+        byte[] serialized = withSerialVersionUID(serialize(new SavedState()), SavedState.class.getName(), OLDER_SAVED_STATE_SERIAL_VERSION_UID);
+
+        assertThrows(InvalidClassException.class, () -> deserialize(serialized));
+    }
+
+    /**
+     * Every field of a per-row state which is not at its default is restored as saved.
+     */
+    @Test
+    public void savedStateRoundTripsEveryField() throws Exception {
+        SavedState state = new SavedState();
+        state.setSubmittedValue("submitted");
+        state.setValue("value");
+        state.setLocalValueSet(true);
+        state.setValid(false);
+        state.setSubmitted(true);
+
+        SavedState restored = serializeAndDeserialize(state);
+
+        assertEquals("submitted", restored.getSubmittedValue());
+        assertEquals("value", restored.getValue());
+        assertTrue(restored.isLocalValueSet());
+        assertFalse(restored.isValid());
+        assertTrue(restored.getSubmitted());
     }
 
     /**
