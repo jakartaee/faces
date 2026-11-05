@@ -40,6 +40,7 @@ import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import jakarta.faces.flow.FlowHandler;
+import jakarta.faces.model.DataModel;
 import jakarta.faces.validator.Validator;
 
 /**
@@ -394,6 +395,16 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
     @Override
     public Iterator<String> getBehaviorIds() {
         return getWrapped().getBehaviorIds();
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * The default behavior of this method is to call {@link Application#createDataModel(FacesContext, Object)} on the wrapped {@link Application} object.
+     * </p>
+     */
+    @Override
+    public <T> DataModel<T> createDataModel(FacesContext context, Object value) {
+        return getWrapped().createDataModel(context, value);
     }
 
     /**

@@ -32,10 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.el.ValueExpression;
-import jakarta.enterprise.inject.spi.Bean;
-import jakarta.enterprise.inject.spi.BeanManager;
-import jakarta.enterprise.inject.spi.CDI;
-import jakarta.enterprise.util.AnnotationLiteral;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.FacesMessage;
@@ -55,7 +51,6 @@ import jakarta.faces.event.PreValidateEvent;
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.CollectionDataModel;
 import jakarta.faces.model.DataModel;
-import jakarta.faces.model.FacesDataModel;
 import jakarta.faces.model.IterableDataModel;
 import jakarta.faces.model.ListDataModel;
 import jakarta.faces.model.ResultSetDataModel;
@@ -101,17 +96,6 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
     // --------------------------------------------------------------- Constants
 
     private static final ListDataModel<Object> EMPTY_DATA_MODEL = new ListDataModel<>(Collections.emptyList());
-
-    /**
-     * The CDI bean name under which the implementation registers the map of {@code @FacesDataModel} classes to their {@code DataModel} implementations.
-     *
-     * The Faces specification defines the {@code @FacesDataModel} lookup <em>behavior</em> but not this mechanism, so the name is currently an undocumented
-     * contract that the API and the implementation each hardcode independently.
-     *
-     * TODO: long term this bean name should be defined by the specification, so the implementation no longer has to guess/invent it and both sides can
-     * reference a single spec-defined definition instead of duplicating the literal. See https://github.com/jakartaee/faces/issues/2184
-     */
-    private static final String DATA_MODEL_CLASSES_MAP_BEAN_NAME = "jakarta.faces.DATA_MODEL_CLASSES_MAP";
 
     // ------------------------------------------------------------ Constructors
 
@@ -752,7 +736,13 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * <li><code>java.util.List</code></li>
      * <li><code>java.sql.ResultSet</code></li>
      * <li class="changed_added_2_2"><code>java.util.Collection</code></li>
+     * <li class="changed_added_5_0"><code>java.lang.Iterable</code></li>
+     * <li class="changed_added_5_0"><code>java.util.Map</code>, by adapting its <code>entrySet()</code></li>
      * </ul>
+     * <p class="changed_added_5_0">
+     * Any other type will be adapted using the {@link DataModel} returned by {@link Application#createDataModel(FacesContext, Object)}, if that is not
+     * <code>null</code>.
+     * </p>
      * <p>
      * All other types will be adapted using the {@link ScalarDataModel} class, which will treat the object as a single row of data.
      * </p>
@@ -1782,67 +1772,12 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
             setDataModel(new IterableDataModel<>(((Map<?, ?>) current).entrySet()));
         }
         else {
-            DataModel<?> dataModel = createDataModel(current.getClass());
-            if (dataModel != null) {
-                dataModel.setWrappedData(current);
-                setDataModel(dataModel);
-            }
-            else {
-                setDataModel(new ScalarDataModel(current));
-            }
+            FacesContext context = getFacesContext();
+            DataModel<?> dataModel = context.getApplication().createDataModel(context, current);
+            setDataModel(dataModel != null ? dataModel : new ScalarDataModel(current));
         }
         return model;
 
-    }
-
-    static private class FacesDataModelAnnotationLiteral extends AnnotationLiteral<FacesDataModel> implements FacesDataModel {
-
-        private static final long serialVersionUID = 1L;
-
-        /**
-         * Stores the forClass attribute.
-         */
-        private final Class<?> forClass;
-
-        public FacesDataModelAnnotationLiteral(Class<?> forClass) {
-            this.forClass = forClass;
-        }
-
-        @Override
-        public Class<?> forClass() {
-            return forClass;
-        }
-
-    }
-
-    private DataModel<?> createDataModel(final Class<?> forClass) {
-
-        List<DataModel<?>> dataModel = new ArrayList<>(1);
-        CDI<Object> cdi = CDI.current();
-
-        // Scan the map in order, the first class that is a super class or equal to the class for which
-        // we're looking for a DataModel is the closest match, since the Map is sorted on inheritance relation
-        getDataModelClassesMap(cdi).entrySet().stream().filter(e -> e.getKey().isAssignableFrom(forClass)).findFirst().ifPresent(
-
-            // Get the bean from CDI which is of the class type that we found during annotation scanning
-            // and has the @FacesDataModel annotation, with the "forClass" attribute set to the closest
-            // super class of our target class.
-
-            e -> dataModel.add(cdi.select(e.getValue(), new FacesDataModelAnnotationLiteral(e.getKey())).get())
-        );
-
-        return dataModel.isEmpty() ? null : dataModel.get(0);
-    }
-
-    @SuppressWarnings("unchecked") // CDI getReference returns Object; the bean is the documented DataModel-classes map.
-    private Map<Class<?>, Class<? extends DataModel<?>>> getDataModelClassesMap(CDI<Object> cdi) {
-        BeanManager beanManager = cdi.getBeanManager();
-
-        // Get the Map with classes for which a custom DataModel implementation is available from CDI
-        Bean<?> bean = beanManager.resolve(beanManager.getBeans(DATA_MODEL_CLASSES_MAP_BEAN_NAME));
-        Object beanReference = beanManager.getReference(bean, Map.class, beanManager.createCreationalContext(bean));
-
-        return (Map<Class<?>, Class<? extends DataModel<?>>>) beanReference;
     }
 
     /**

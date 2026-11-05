@@ -21,17 +21,25 @@ import static jakarta.faces.component.NamingContainer.SEPARATOR_CHAR;
 import static jakarta.faces.component.UINamingContainer.SEPARATOR_CHAR_PARAM_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.context.CurrentFacesContext;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.model.DataModel;
+import jakarta.faces.model.ListDataModel;
+import jakarta.faces.model.ScalarDataModel;
 import jakarta.faces.render.RenderKit;
 
 import org.junit.jupiter.api.Test;
@@ -169,6 +177,45 @@ public class UIDataTest {
         assertEquals(List.of(1, -1), rowIndexes);
     }
 
+    /**
+     * A value of a type which UIData does not adapt itself is adapted by the DataModel of the Application.
+     */
+    @Test
+    public void otherValueIsAdaptedByDataModelOfApplication() {
+        Object value = new Object();
+        DataModel<?> dataModel = new ListDataModel<>(List.of("row"));
+        CurrentFacesContext.set(mockFacesContextCreatingDataModel(value, dataModel));
+
+        try {
+            UIData data = new UIData();
+            data.setValue(value);
+            assertSame(dataModel, data.getDataModel());
+        }
+        finally {
+            CurrentFacesContext.set(null);
+        }
+    }
+
+    /**
+     * A value of a type for which the Application has no DataModel is adapted by a ScalarDataModel.
+     */
+    @Test
+    public void otherValueWithoutDataModelOfApplicationIsAdaptedByScalarDataModel() {
+        Object value = new Object();
+        CurrentFacesContext.set(mockFacesContextCreatingDataModel(value, null));
+
+        try {
+            UIData data = new UIData();
+            data.setValue(value);
+            DataModel<?> dataModel = data.getDataModel();
+            assertInstanceOf(ScalarDataModel.class, dataModel);
+            assertSame(value, dataModel.getWrappedData());
+        }
+        finally {
+            CurrentFacesContext.set(null);
+        }
+    }
+
     private static UIData createRowIndexRecordingData(List<Integer> rowIndexes) {
         UIData data = new UIData() {
 
@@ -181,6 +228,14 @@ public class UIDataTest {
 
         data.setId("users");
         return data;
+    }
+
+    private static FacesContext mockFacesContextCreatingDataModel(Object value, DataModel<?> dataModel) {
+        FacesContext context = mock(FacesContext.class);
+        Application application = mock(Application.class);
+        when(context.getApplication()).thenReturn(application);
+        doReturn(dataModel).when(application).createDataModel(context, value);
+        return context;
     }
 
     private static FacesContext mockFacesContext() {

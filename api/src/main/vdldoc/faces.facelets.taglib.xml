@@ -951,6 +951,11 @@ attribute must be an absolute path starting with "/".</span>
 
                 </div>
 
+                <p class="changed_added_5_0">Any other type is adapted using the
+                <code>DataModel</code> returned by
+                <code>Application.createDataModel()</code>, if that is not
+                <code>null</code>. Otherwise it is treated as a single row.</p>
+
             ]]></description>
             <name>value</name>
             <required>true</required>

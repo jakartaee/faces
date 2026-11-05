@@ -285,6 +285,7 @@ public Converter createConverter(Class targetClass);
 public Converter createConverter(String converterId);
 public Validator createValidator(String validatorId);
 public Behavior createBehavior(String behaviorId);
+public <T> DataModel<T> createDataModel(FacesContext context, Object value);
 ----
 
 Each of these methods creates a new instance
@@ -296,6 +297,11 @@ in one or more application configuration resources (see
 <<UsingFacesInWebApplications.adoc#a6195,Application Configuration Resources>>)
 included with a Jakarta Faces web application, or embedded in a JAR file
 containing the corresponding implementation classes.
+
+Unlike the other methods, _createDataModel()_ is not based on an
+identifier. It returns the most specific _DataModel_ registered with
+_@FacesDataModel_ that can wrap the given value, or _null_ when none can
+wrap it. See the javadoc of _jakarta.faces.model.FacesDataModel_.
 
 All variants _createConverter()_ must take
 some action to inspect the converter for _@ResourceDependency_ and
