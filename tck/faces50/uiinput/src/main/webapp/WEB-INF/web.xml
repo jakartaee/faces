@@ -39,6 +39,12 @@
         <param-value>spec1507customevent1 spec1507customevent2</param-value>
     </context-param>
 
+    <!-- Required by Issue6131IT — validate a required input also when it has no submitted value. -->
+    <context-param>
+        <param-name>jakarta.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/errorpages/500.xhtml</location>
