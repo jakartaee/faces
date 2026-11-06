@@ -120,6 +120,7 @@
         <maven.compiler.release>17</maven.compiler.release>
         <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <lint.thisEscape />
+        <mockito.version>5.22.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -235,7 +236,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.22.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -361,6 +362,16 @@
                 <version>3.15.0</version>
                 <configuration>
                     <compilerArgument>-Xlint:all,-deprecation,-removal,-serial${lint.thisEscape}</compilerArgument>
+                </configuration>
+            </plugin>
+
+            <!-- Load Mockito's inline mock maker as agent, see https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3 -->
+            <!-- -Xshare:off because the agent appends to the bootstrap class path, which CDS cannot share. -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.5</version>
+                <configuration>
+                    <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar -Xshare:off</argLine>
                 </configuration>
             </plugin>
 
