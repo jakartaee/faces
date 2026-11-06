@@ -1363,6 +1363,9 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             }
             validators.restoreState(context, values[1]);
         }
+        else if (restoredFullState) {
+            validators = null;
+        }
 
     }
 
