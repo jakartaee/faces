@@ -40,7 +40,7 @@
     <properties>
         <ant.version>1.10.2</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
-        <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
+        <ant.launcher>org.apache.tools.ant.launch.Launcher</ant.launcher>
         <skipITs>false</skipITs>
         <tck.home>${project.basedir}</tck.home>
         <tck.tests.home>${tck.home}/src/com/sun/ts/tests/jsf</tck.tests.home>
@@ -85,31 +85,34 @@
         <plugins>
 
             <plugin>
-                <groupId>io.github.download-maven-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>2.0.0</version>
-                <executions>
-                    <execution>
-                        <id>download-ant</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipITs}</skip>
-                            <url>${ant.zip.url}</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
                     <skip>${skipITs}</skip>
                 </configuration>
                 <executions>
+                    <execution>
+                        <id>copy-ant</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.ant</groupId>
+                                    <artifactId>ant</artifactId>
+                                    <version>${ant.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.ant</groupId>
+                                    <artifactId>ant-launcher</artifactId>
+                                    <version>${ant.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${ant.home}/lib</outputDirectory>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>unpack-glassfish</id>
                         <phase>pre-integration-test</phase>
@@ -400,18 +403,20 @@
                                     <dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
                                     <echo>Deploying from ${test.dir}</echo>
 
-                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}">
+                                    <java classname="${ant.launcher}" classpath="${ant.home}/lib/ant-launcher.jar" fork="true" dir="${test.dir}">
+                                        <sysproperty key="ant.home" value="${ant.home}" />
                                         <arg value="deploy"  />
-                                    </exec>
+                                    </java>
                                 </sequential>
 
                                 <!-- Deploy all tests -->
                                 <sequential unless:set="run.test" >
                                     <echo>Deploying all archives</echo>
-                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
+                                    <java classname="${ant.launcher}" classpath="${ant.home}/lib/ant-launcher.jar" fork="true" dir="${tck.tests.home}">
+                                        <sysproperty key="ant.home" value="${ant.home}" />
                                         <arg value="-Dutil.dir=${tck.home}"  />
                                         <arg value="deploy.all"  />
-                                    </exec>
+                                    </java>
                                 </sequential>
                             </target>
                         </configuration>
@@ -431,13 +436,14 @@
 
                                 <echo level="info" message="Start running all tests" unless:set="run.test"/>
                                 <echo level="info" message="Start running single test" if:set="run.test"/>
-                                <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}" resultproperty="testResult">
+                                <java classname="${ant.launcher}" classpath="${ant.home}/lib/ant-launcher.jar" fork="true" dir="${tck.tests.home}" resultproperty="testResult">
+                                    <sysproperty key="ant.home" value="${ant.home}" />
                                     <arg value="-Dutil.dir=${tck.home}"  />
                                     <arg value="-Dmultiple.tests=${run.test}" if:set="run.test" />
                                     <arg value="run.all" unless:set="run.test"/>
                                     <arg value="runclient" if:set="run.test" />
                                     <env key="LC_ALL" value="C" />
-                                </exec>
+                                </java>
 
                                 <if>
                                     <not>

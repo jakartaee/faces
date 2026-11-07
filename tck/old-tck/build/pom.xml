@@ -37,7 +37,6 @@
     <properties>
         <ant.version>1.10.2</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
-        <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
 
         <tck.old.skip>${skipITs}</tck.old.skip>
     </properties>
@@ -92,22 +91,31 @@
             </plugin>
 
             <plugin>
-                <groupId>io.github.download-maven-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <inherited>false</inherited>
-                <version>2.0.0</version>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
-                        <id>download-ant</id>
+                        <id>copy-ant</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>wget</goal>
+                            <goal>copy</goal>
                         </goals>
                         <configuration>
                             <skip>${tck.old.skip}</skip>
-                            <url>${ant.zip.url}</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.ant</groupId>
+                                    <artifactId>ant</artifactId>
+                                    <version>${ant.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.ant</groupId>
+                                    <artifactId>ant-launcher</artifactId>
+                                    <version>${ant.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${ant.home}/lib</outputDirectory>
+                            <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
                 </executions>
@@ -131,7 +139,6 @@
                             <workingDirectory>${project.basedir}/../source</workingDirectory>
                             <environmentVariables>
                                 <ANT_HOME>${ant.home}/</ANT_HOME>
-                                <PATH>${ant.home}/bin:${env.PATH}</PATH>
                             </environmentVariables>
                             <arguments>
                                 <argument>${project.basedir}/../source</argument>
