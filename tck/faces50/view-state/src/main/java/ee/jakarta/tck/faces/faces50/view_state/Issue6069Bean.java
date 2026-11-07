@@ -13,25 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.faces50.misc;
+package ee.jakarta.tck.faces.faces50.view_state;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.component.html.HtmlOutputText;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.inject.Named;
 
 @Named
 @RequestScoped
-public class Issue6097Bean {
+public class Issue6069Bean {
 
-    public void changeAttributes(ComponentSystemEvent event) {
-        HtmlOutputText text = (HtmlOutputText) event.getComponent();
-        FacesContext context = FacesContext.getCurrentInstance();
-        text.setStyleClass("changed");
-        text.setValueExpression(
-            "title", context.getApplication().getExpressionFactory().createValueExpression(context.getELContext(), "#{'Title'}", String.class)
-        );
+    public String redirect() {
+        return "issue6069Target?faces-redirect=true&q=ä";
     }
 
 }

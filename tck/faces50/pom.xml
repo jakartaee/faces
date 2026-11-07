@@ -49,6 +49,7 @@
         <module>csp</module>
         <module>csp-disabled</module>
         <module>misc</module>
+        <module>view-state</module>
         <module>view-protection</module>
         <module>extensionless-mapping</module>
         <module>facelets-suffix</module>
