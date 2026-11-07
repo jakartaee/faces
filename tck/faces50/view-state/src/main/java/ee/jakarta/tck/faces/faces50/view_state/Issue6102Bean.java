@@ -13,22 +13,36 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.faces50.misc;
+package ee.jakarta.tck.faces.faces50.view_state;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 @Named
 @RequestScoped
-public class Issue6100Bean {
+public class Issue6102Bean {
 
-    public void add(String id) {
+    public void add(String id, int index) {
         HtmlOutputText text = new HtmlOutputText();
         text.setId(id);
         text.setValue(id.toUpperCase());
-        FacesContext.getCurrentInstance().getViewRoot().findComponent("form:target").getChildren().add(0, text);
+        getTarget().getChildren().add(index, text);
+    }
+
+    public void addAndRemove(String id, int index, String removeId) {
+        add(id, index);
+        remove(removeId);
+    }
+
+    public void remove(String id) {
+        getTarget().getChildren().remove(getTarget().findComponent(id));
+    }
+
+    private static UIComponent getTarget() {
+        return FacesContext.getCurrentInstance().getViewRoot().findComponent("form:target");
     }
 
 }

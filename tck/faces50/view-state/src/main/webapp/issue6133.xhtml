@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets">
+    <h:head>
+        <title>Validator added to one row of a table with rowStatePreserved</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <!-- The inputs must have no validator in their initial state. -->
+            <f:validateBean disabled="true">
+                <h:dataTable id="table" value="#{issue6133Bean.tableRows}" var="row" rowStatePreserved="true">
+                    <h:column>
+                        <h:inputText id="in" value="#{row.name}" />
+                        <h:commandButton id="restrict" value="Restrict" actionListener="#{issue6133Bean.restrict}" />
+                        <h:message id="message" for="in" />
+                    </h:column>
+                </h:dataTable>
+                <ui:repeat id="repeat" value="#{issue6133Bean.repeatRows}" var="row" rowStatePreserved="true">
+                    <h:inputText id="in" value="#{row.name}" />
+                    <h:commandButton id="restrict" value="Restrict" actionListener="#{issue6133Bean.restrict}" />
+                    <h:message id="message" for="in" />
+                </ui:repeat>
+            </f:validateBean>
+            <h:outputText id="tableNames" value="#{issue6133Bean.tableNames}" />
+            <h:outputText id="repeatNames" value="#{issue6133Bean.repeatNames}" />
+            <h:commandButton id="submit" value="Submit" />
+            <h:commandButton id="addRow" value="Add row" action="#{issue6133Bean.addRow}">
+                <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>
