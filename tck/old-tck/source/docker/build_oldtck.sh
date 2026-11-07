@@ -30,9 +30,12 @@ if [ -z "$JAKARTA_JARS" ]; then
   export JAKARTA_JARS=$BASEDIR/lib
 fi
 
-export PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$PATH
+export PATH=$JAVA_HOME/bin:$PATH
 
-which ant
+ant() {
+  java $ANT_OPTS -classpath "$ANT_HOME/lib/ant-launcher.jar" -Dant.home="$ANT_HOME" org.apache.tools.ant.launch.Launcher "$@"
+}
+
 ant -version
 
 which java
