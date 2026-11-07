@@ -26,6 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue6125IT extends BaseITNG {
 
+    private static final String ROWS = "bab";
+
     @FindBy(id = "form:table")
     private WebElement table;
 
@@ -34,6 +36,9 @@ class Issue6125IT extends BaseITNG {
 
     @FindBy(id = "form:set")
     private WebElement set;
+
+    @FindBy(id = "form:setUnmodifiable")
+    private WebElement setUnmodifiable;
 
     @FindBy(id = "form:submit")
     private WebElement submit;
@@ -55,8 +60,26 @@ class Issue6125IT extends BaseITNG {
         assertValues("after the next postback");
     }
 
+    /**
+     * The <code>UIComponentBase.saveAttachedState()</code> javadoc supports <code>Collection</code>s and requires a zero-argument public constructor only of
+     * the objects they contain, and <code>restoreAttachedState()</code> supports restoring every type which <code>saveAttachedState()</code> supports. So an
+     * unmodifiable <code>List</code> without public constructor which Java code sets as the value of a component is restored as well.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/6125">issue 6125</a>
+     */
+    @Test
+    void testUnmodifiableValueSetWholeIsRestored() {
+        WebPage page = getPage("issue6125.xhtml");
+
+        page.guardHttp(setUnmodifiable::click);
+        assertEquals(ROWS, table.getText().replaceAll("\\s", ""), "rows of form:table after set");
+
+        page.guardHttp(submit::click);
+        assertEquals(ROWS, table.getText().replaceAll("\\s", ""), "rows of form:table after the next postback");
+    }
+
     private void assertValues(String when) {
-        assertEquals("bab", table.getText().replaceAll("\\s", ""), "rows of form:table " + when);
+        assertEquals(ROWS, table.getText().replaceAll("\\s", ""), "rows of form:table " + when);
         assertEquals("{z=1,a=2,m=3}", map.getText().replaceAll("\\s", ""), "text of form:map " + when);
     }
 
