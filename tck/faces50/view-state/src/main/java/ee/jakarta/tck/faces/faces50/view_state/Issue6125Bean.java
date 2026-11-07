@@ -31,15 +31,24 @@ import jakarta.inject.Named;
 @RequestScoped
 public class Issue6125Bean {
 
+    private static final List<String> ROWS = List.of("b", "a", "b");
+
     public void setValues() {
         UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-        ((UIData) viewRoot.findComponent("form:table")).setValue(new ArrayList<>(List.of("b", "a", "b")));
+        ((UIData) viewRoot.findComponent("form:table")).setValue(new ArrayList<>(ROWS));
 
         Map<String, String> map = new LinkedHashMap<>();
         map.put("z", "1");
         map.put("a", "2");
         map.put("m", "3");
         ((UIOutput) viewRoot.findComponent("form:map")).setValue(map);
+    }
+
+    /**
+     * Sets an unmodifiable list, which has no public constructor.
+     */
+    public void setUnmodifiableValue() {
+        ((UIData) FacesContext.getCurrentInstance().getViewRoot().findComponent("form:table")).setValue(ROWS);
     }
 
 }
