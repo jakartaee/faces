@@ -1387,27 +1387,32 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             throw new NullPointerException();
         }
 
-        if (!isRenderedAsCurrentComponent(context)) {
-            return;
-        }
-
-        encodeBegin(context);
-
-        if (getRendersChildren()) {
-            encodeChildren(context);
-        }
-        else if (getChildCount() > 0) {
-            // Re-read size() each iteration rather than freezing the count: a child may be appended to this
-            // component while one of its own children is being encoded (e.g. a component that programmatically
-            // adds a sibling during its render), and it must still be encoded. This matches the live semantics
-            // of the children list iterator, which never throws on concurrent append.
-            List<UIComponent> children = getChildren();
-            for (int i = 0; i < children.size(); i++) {
-                children.get(i).encodeAll(context);
+        try {
+            if (!checkAndCacheIsRendered(context)) {
+                return;
             }
-        }
 
-        encodeEnd(context);
+            encodeBegin(context);
+
+            if (getRendersChildren()) {
+                encodeChildren(context);
+            }
+            else if (getChildCount() > 0) {
+                // Re-read size() each iteration rather than freezing the count: a child may be appended to this
+                // component while one of its own children is being encoded (e.g. a component that programmatically
+                // adds a sibling during its render), and it must still be encoded. This matches the live semantics
+                // of the children list iterator, which never throws on concurrent append.
+                List<UIComponent> children = getChildren();
+                for (int i = 0; i < children.size(); i++) {
+                    children.get(i).encodeAll(context);
+                }
+            }
+
+            encodeEnd(context);
+        }
+        finally {
+            clearCachedIsRendered();
+        }
     }
 
     @SuppressWarnings("unchecked") // the EL stack is stored under an Object-valued context attribute.
@@ -1529,6 +1534,21 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                 compositeELStack.pop();
             }
         }
+    }
+
+    /**
+     * Whether {@link #encodeAll(FacesContext)} is to encode this component, as evaluated with this component pushed as the current component. An implementation
+     * may cache the answer until {@link #clearCachedIsRendered()}.
+     */
+    boolean checkAndCacheIsRendered(FacesContext context) {
+        return isRenderedAsCurrentComponent(context);
+    }
+
+    /**
+     * Discards what {@link #checkAndCacheIsRendered(FacesContext)} cached. Called at the end of every {@link #encodeAll(FacesContext)}, as a component is free
+     * to override {@link #encodeEnd(FacesContext)} without calling the super method.
+     */
+    void clearCachedIsRendered() {
     }
 
     /**
