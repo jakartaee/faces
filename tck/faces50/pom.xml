@@ -54,6 +54,7 @@
         <module>extensionless-mapping</module>
         <module>facelets-suffix</module>
         <module>facelets-view-mappings</module>
+        <module>client-window</module>
 <!--
     Below one is deactivated until the maximum number of active view maps is configurable via public API such as a jakarta.faces.NUMBER_OF_ACTIVE_VIEW_MAPS context param.
     See also https://github.com/eclipse-ee4j/mojarra/issues/5844
