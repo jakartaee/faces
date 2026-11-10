@@ -363,7 +363,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20250517</version>
+            <version>20260719</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
