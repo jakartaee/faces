@@ -133,6 +133,13 @@ public class UISelectOne extends UIInput {
 
     // ----------------------------------------------------- UIComponent Methods
 
+    /**
+     * <p class="changed_added_5_0">
+     * Perform standard superclass processing by <code>super.decode(context)</code>. Then, if {@link #getGroup()} is set and {@link #getSubmittedValue()} is not
+     * empty, record for the current request that the group has a member with a non-empty submitted value, so that {@link #processValidators(FacesContext)}
+     * skips validation of the members of the group with an empty submitted value.
+     * </p>
+     */
     @Override
     public void decode(FacesContext context) {
         super.decode(context);
