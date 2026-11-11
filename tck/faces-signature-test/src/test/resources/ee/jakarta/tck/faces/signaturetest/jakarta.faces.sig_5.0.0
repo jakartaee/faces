@@ -5583,29 +5583,35 @@ CLSS public jakarta.faces.event.MethodExpressionActionListener
 cons public init()
 cons public init(jakarta.el.MethodExpression)
 cons public init(jakarta.el.MethodExpression,jakarta.el.MethodExpression)
-intf jakarta.faces.component.StateHolder
+intf jakarta.faces.component.PartialStateHolder
 intf jakarta.faces.event.ActionListener
+meth public boolean initialStateMarked()
 meth public boolean isTransient()
 meth public java.lang.Object saveState(jakarta.faces.context.FacesContext)
+meth public void clearInitialState()
+meth public void markInitialState()
 meth public void processAction(jakarta.faces.event.ActionEvent)
 meth public void restoreState(jakarta.faces.context.FacesContext,java.lang.Object)
 meth public void setTransient(boolean)
 supr java.lang.Object
-hfds ACTION_LISTENER_ZEROARG_SIG,isTransient,methodExpressionOneArg,methodExpressionZeroArg
+hfds ACTION_LISTENER_ZEROARG_SIG,initialState,isTransient,methodExpressionOneArg,methodExpressionZeroArg
 
 CLSS public jakarta.faces.event.MethodExpressionValueChangeListener
 cons public init()
 cons public init(jakarta.el.MethodExpression)
 cons public init(jakarta.el.MethodExpression,jakarta.el.MethodExpression)
-intf jakarta.faces.component.StateHolder
+intf jakarta.faces.component.PartialStateHolder
 intf jakarta.faces.event.ValueChangeListener
+meth public boolean initialStateMarked()
 meth public boolean isTransient()
 meth public java.lang.Object saveState(jakarta.faces.context.FacesContext)
+meth public void clearInitialState()
+meth public void markInitialState()
 meth public void processValueChange(jakarta.faces.event.ValueChangeEvent)
 meth public void restoreState(jakarta.faces.context.FacesContext,java.lang.Object)
 meth public void setTransient(boolean)
 supr java.lang.Object
-hfds VALUECHANGE_LISTENER_ZEROARG_SIG,isTransient,methodExpressionOneArg,methodExpressionZeroArg
+hfds VALUECHANGE_LISTENER_ZEROARG_SIG,initialState,isTransient,methodExpressionOneArg,methodExpressionZeroArg
 
 CLSS public abstract interface !annotation jakarta.faces.event.NamedEvent
  anno 0 jakarta.enterprise.inject.Stereotype()
@@ -6597,15 +6603,18 @@ hfds initialState,maximum,minimum,transientValue
 CLSS public jakarta.faces.validator.MethodExpressionValidator
 cons public init()
 cons public init(jakarta.el.MethodExpression)
-intf jakarta.faces.component.StateHolder
+intf jakarta.faces.component.PartialStateHolder
 intf jakarta.faces.validator.Validator<java.lang.Object>
+meth public boolean initialStateMarked()
 meth public boolean isTransient()
 meth public java.lang.Object saveState(jakarta.faces.context.FacesContext)
+meth public void clearInitialState()
+meth public void markInitialState()
 meth public void restoreState(jakarta.faces.context.FacesContext,java.lang.Object)
 meth public void setTransient(boolean)
 meth public void validate(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent,java.lang.Object)
 supr java.lang.Object
-hfds BEANS_VALIDATION_AVAILABLE,VALIDATE_EMPTY_FIELDS_PARAM_NAME,methodExpression,transientValue,validateEmptyFields
+hfds BEANS_VALIDATION_AVAILABLE,VALIDATE_EMPTY_FIELDS_PARAM_NAME,initialState,methodExpression,transientValue,validateEmptyFields
 
 CLSS public jakarta.faces.validator.RegexValidator
 cons public init()
