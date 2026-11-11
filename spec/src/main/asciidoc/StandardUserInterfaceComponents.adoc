@@ -1294,7 +1294,8 @@ Validations_, _Update Model Values_, and _Invoke Application_ phases
 to be skipped).
 
 The viewMap
-property is lazily created the first time it is accessed, and it is
+property is lazily created the first time it is accessed, by calling
+_ViewHandler.createViewMap()_, and it is
 destroyed when a different _UIViewRoot_ instance is installed from a
 call to _FacesContext.setViewRoot()_. After the Map is created a
 _PostConstructViewMapEvent_ must be published using _UIViewRoot_ as the
