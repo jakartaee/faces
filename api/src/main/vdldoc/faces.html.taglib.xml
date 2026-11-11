@@ -1754,7 +1754,7 @@
                 arguments with a return type of void. In the latter case, the
                 method has no way of easily knowing where the event came from,
                 but this can be useful in cases where a notification is needed
-                that "some action happened".&lt;/span&gt;
+                that "some action happened".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ActionEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>actionListener</name>
@@ -2248,7 +2248,7 @@
                 arguments with a return type of void. In the latter case, the
                 method has no way of easily knowing where the event came from,
                 but this can be useful in cases where a notification is needed
-                that "some action happened".&lt;/span&gt;
+                that "some action happened".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ActionEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>actionListener</name>
@@ -2658,7 +2658,7 @@
                 or to a public method that takes no arguments with a return type of <code>void</code>.
                 In the latter case,
                 the method has no way of easily knowing where the event came from,
-                but this can be useful in cases where a notification is needed that "some action happened".
+                but this can be useful in cases where a notification is needed that "some action happened". <span class="changed_added_5_0">When both methods exist, the method that takes the <code>ActionEvent</code> is invoked.</span>
             ]]></description>
             <name>actionListener</name>
             <required>false</required>
@@ -4094,7 +4094,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -4254,7 +4254,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -4721,7 +4721,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -5172,7 +5172,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -8222,7 +8222,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -8677,7 +8677,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -9309,7 +9309,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -9762,7 +9762,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -10205,7 +10205,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -10641,7 +10641,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -11119,7 +11119,7 @@
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".&lt;/span&gt;
+                changed".&lt;/span&gt; &lt;span class="changed_added_5_0"&gt;When both methods exist, the method that takes the &lt;code&gt;ValueChangeEvent&lt;/code&gt; is invoked.&lt;/span&gt;
                 &lt;/p&gt;
             </description>
             <name>valueChangeListener</name>
@@ -11704,7 +11704,7 @@
                 of void.  In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".</span>
+                changed".</span> <span class="changed_added_5_0">When both methods exist, the method that takes the <code>ValueChangeEvent</code> is invoked.</span>
 
                 </p>]]>
             </description>
