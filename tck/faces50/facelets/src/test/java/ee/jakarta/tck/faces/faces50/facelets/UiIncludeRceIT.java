@@ -51,6 +51,16 @@ class UiIncludeRceIT extends BaseITNG {
     }
 
     /**
+     * A relative path may climb out of the directory of the Facelet declaring it into any other directory of the application, whatever url scheme the container
+     * returns for the application root directory.
+     */
+    @Test
+    void testSiblingDirectoryInclude() {
+        var page = getPage("uiIncludeRceSub/sibling.xhtml");
+        assertTrue(page.containsText("sibling directory content"), () -> "Sibling directory include must render, but page source was: " + page.getSource());
+    }
+
+    /**
      * WEB-INF is protected by the container against direct requests, but remains a legitimate location for a Facelet which is pulled in by an include.
      */
     @Test
