@@ -31,7 +31,7 @@ import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUM
 import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
 import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
 
-import java.io.OutputStream;
+import java.io.File;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.time.Duration;
@@ -44,6 +44,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -113,6 +114,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         HttpCycleData::getResponseTime,
         nullsFirst(naturalOrder())
     );
+    private static final String LOG_DIRECTORY = "target/chromedriver-logs";
+    private static final AtomicInteger LOG_FILE_COUNTER = new AtomicInteger();
 
     /**
      * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the selenium webdriver version must match the
@@ -174,6 +177,16 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         return driver;
     }
 
+    /**
+     * Returns a log file for one chromedriver instance in {@link #LOG_DIRECTORY}, named after the JVM and the order of creation, so that the log of a driver
+     * which ended during a test outlives that driver.
+     */
+    private static File newLogFile() {
+        File directory = new File(LOG_DIRECTORY);
+        directory.mkdirs();
+        return new File(directory, "chromedriver-" + ProcessHandle.current().pid() + "-" + LOG_FILE_COUNTER.incrementAndGet() + ".log");
+    }
+
     private static void initCDPVersionMessageFilter() {
         Logger logger = Logger.getLogger("org.openqa.selenium.devtools.CdpVersionFinder");
 
@@ -191,9 +204,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     public ChromeDevtoolsDriver(ChromeOptions options) {
-        ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().build();
-
-        chromeDriverService.sendOutputTo(OutputStream.nullOutputStream());
+        ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().withLogFile(newLogFile()).build();
         delegate = new ChromeDriver(chromeDriverService, options);
         facesContentWait = new ChromeDriverWait(delegate, STD_TIMEOUT, Duration.ofMillis(100L))
             .ignoring(WebDriverException.class);
