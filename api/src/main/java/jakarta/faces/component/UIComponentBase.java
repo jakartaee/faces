@@ -1540,13 +1540,15 @@ public abstract class UIComponentBase extends UIComponent {
      * <p>
      * This method supports saving attached objects of the following type: <code>Object</code>s, <code>null</code> values, and <code
      * class="changed_modified_2_0">Collection</code>s of these objects. If any contained objects are not <code
-     * class="changed_modified_2_0">Collection</code>s and do not implement {@link StateHolder}, they must have zero-argument public constructors. The exact
-     * structure of the returned object is undefined and opaque, but will be serializable.
+     * class="changed_modified_2_0">Collection</code>s and do not implement {@link StateHolder}, they must have zero-argument public constructors.
+     * <span class="changed_added_5_0">A <code>Collection</code> or <code>Map</code> whose class is not public, or has no public zero-argument constructor, must
+     * be <code>Serializable</code>, together with the objects it contains, and is then saved whole.</span> The exact structure of the returned object is
+     * undefined and opaque, but will be serializable.
      * </p>
      *
      * @param context the {@link FacesContext} for this request.
-     * @param attachedObject the object, which may be a <code>List</code> instance, or an Object. The <code>attachedObject</code> (or the elements that comprise
-     * <code>attachedObject</code> may implement) {@link StateHolder}.
+     * @param attachedObject <span class="changed_modified_5_0">the object, which may be a <code>Collection</code>. The <code>attachedObject</code>, or the
+     * objects it contains, may implement {@link StateHolder}.</span>
      *
      * @return The state object to be saved.
      * @throws NullPointerException if the context argument is null.
@@ -1648,7 +1650,8 @@ public abstract class UIComponentBase extends UIComponent {
      * </p>
      *
      * <p>
-     * This method supports restoring all attached objects types supported by {@link #saveAttachedState}.
+     * This method supports restoring all attached objects types supported by {@link #saveAttachedState}. <span class="changed_added_5_0">An object which was
+     * saved whole is restored as an instance of the same class.</span>
      * </p>
      *
      * @param context the {@link FacesContext} for this request
