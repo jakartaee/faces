@@ -697,10 +697,11 @@ common unintended way of manipulating it afterwards.
 
 * The two build time options differ in when
 they decide. A _build time condition_ is an expression in a tag attribute
-that decides what components a build produces, such as the test of a
-conditional or the items of an iteration. It is evaluated by the rendering
-build, so it observes whatever the request has done to the model by then;
-the cost is that such a view is built twice per postback. A listener of
+that decides what components a build produces and how they are identified,
+such as the test of a conditional, the items of an iteration or the id of
+a component. It is evaluated by the rendering build, so it observes
+whatever the request has done to the model by then; the cost is that such
+a view is built twice per postback. A listener of
 _PostAddToViewEvent_ runs when the component it is registered on is added
 to the view, and a build which finds that component already there does not
 run it again. On a postback that is normally the restoring build, so it
