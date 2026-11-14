@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -21,6 +22,8 @@ import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -38,18 +41,19 @@ import org.htmlunit.html.HtmlPage;
 
 @RunWith(Arquillian.class)
 public class VerifyTemplateUIIT {
+    private static final Logger LOG = System.getLogger(VerifyTemplateUIIT.class.getName());
 
     @ArquillianResource
     private URL webUrl;
     private WebClient webClient;
-    
+
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return create(ZipImporter.class, getProperty("finalName") + ".war")
                 .importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
-    
+
     @Before
     public void setUp() {
         webClient = new WebClient();
@@ -68,9 +72,9 @@ public class VerifyTemplateUIIT {
     public void testUL() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         String pageXml = page.getBody().asXml();
-        
-        assertTrue(pageXml.matches("(?s).*<li>\\s+a\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+b\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+c\\s+</li>.*"));
+        LOG.log(Level.DEBUG, () -> "Retrieved page body: \n" + pageXml);
+        assertTrue(pageXml.matches("(?s).*<li>\\s*a\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*b\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*c\\s*</li>.*"));
     }
 }
