@@ -541,10 +541,10 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             </activation>
 
             <properties>
-                <arquillian.glassfish.version>2.1.0</arquillian.glassfish.version>
-                <slf4j.version>2.0.17</slf4j.version>
+                <arquillian.glassfish.version>2.2.1</arquillian.glassfish.version>
+                <slf4j.version>2.0.20</slf4j.version>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.1.8-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.20</mojarra.version>
 
                 <!--
                     By default this profile will copy the Mojarra version to test to GlassFish.
@@ -561,8 +561,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <sigtest.api.artifactId>jakarta.faces</sigtest.api.artifactId>
                 <sigtest.api.version>${mojarra.version}</sigtest.api.version>
 
-                <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>8.0.1</glassfish.version>
+                <!-- Vehicle used for testing the Mojarra version -->
+                <glassfish.version>8.0.5</glassfish.version>
                 <glassfish.dirName>glassfish8</glassfish.dirName>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/${glassfish.dirName}</glassfish.home>
