@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -32,6 +33,12 @@ import jakarta.faces.context.FacesContext;
  *
  * <p>
  * An implementor must have a public no-args constructor.
+ * </p>
+ *
+ * <p class="changed_added_5_0">
+ * An object attached to a component, such as a converter, validator, listener or behavior, which implements only this interface, is saved in every view state
+ * with the full result of its {@link #saveState} method, because the runtime cannot tell whether it changed after the build of the view. To save only its
+ * changes after the build of the view, it should implement {@link PartialStateHolder} instead.
  * </p>
  *
  */

@@ -188,6 +188,10 @@ Spec: clarify h:message(s) rendering when no messages
 
 This release contains the following backwards incompatible changes:
 
+* Issue ID {issue_tracker_url}2276[2276] +
+Change: _MethodExpressionActionListener_, _MethodExpressionValueChangeListener_ and _MethodExpressionValidator_ implement _PartialStateHolder_ instead of _StateHolder_. +
+Their _saveState()_ returns null while _initialStateMarked()_ returns true, so a subclass which calls _super.saveState()_ gets null then.
+
 * Issue ID {issue_tracker_url}2226[2226] +
 Removal: ActionSource2, ActionSource2AttachedObjectHandler and ActionSource2AttachedObjectTarget deprecated since 4.1
 

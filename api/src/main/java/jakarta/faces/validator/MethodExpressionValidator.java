@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024, 2025 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024, 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -22,7 +22,7 @@ import java.util.Map;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.MethodExpression;
-import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.PartialStateHolder;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
@@ -32,9 +32,14 @@ import jakarta.faces.context.FacesContext;
  * <strong class="changed_modified_2_0_rev_a">MethodExpressionValidator</strong> is a {@link Validator} that wraps a {@link MethodExpression}, and it performs
  * validation by executing a method on an object identified by the {@link MethodExpression}.
  * </p>
+ *
+ * <p class="changed_added_5_0">
+ * Its state is set only by its constructor, or by {@link #restoreState(FacesContext, Object)} from a full state. It does not change after the build of the
+ * view, so while {@link #initialStateMarked()} returns <code>true</code>, {@link #saveState(FacesContext)} returns <code>null</code>.
+ * </p>
  */
 
-public class MethodExpressionValidator implements Validator<Object>, StateHolder {
+public class MethodExpressionValidator implements Validator<Object>, PartialStateHolder {
 
     private static final String BEANS_VALIDATION_AVAILABLE = "jakarta.faces.private.BEANS_VALIDATION_AVAILABLE";
 
@@ -97,10 +102,19 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
 
     // ----------------------------------------------------- StateHolder Methods
 
+    /**
+     * <p class="changed_added_5_0">
+     * The {@link MethodExpression} described in the constructor must be saved. While {@link #initialStateMarked()} returns <code>true</code>, nothing is saved
+     * and <code>null</code> is returned.
+     * </p>
+     */
     @Override
     public Object saveState(FacesContext context) {
         if (context == null) {
             throw new NullPointerException();
+        }
+        if (initialState) {
+            return null;
         }
         Object values[] = new Object[1];
         values[0] = methodExpression;
@@ -108,6 +122,11 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
 
     }
 
+    /**
+     * <p class="changed_added_5_0">
+     * The {@link MethodExpression} described in the constructor must be restored. A <code>null</code> state is ignored.
+     * </p>
+     */
     @Override
     public void restoreState(FacesContext context, Object state) {
         if (context == null) {
@@ -134,6 +153,25 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
 
         this.transientValue = transientValue;
 
+    }
+
+    // ----------------------------------------------- PartialStateHolder Methods
+
+    private boolean initialState;
+
+    @Override
+    public void markInitialState() {
+        initialState = true;
+    }
+
+    @Override
+    public boolean initialStateMarked() {
+        return initialState;
+    }
+
+    @Override
+    public void clearInitialState() {
+        initialState = false;
     }
 
     private boolean validateEmptyFields(FacesContext ctx) {

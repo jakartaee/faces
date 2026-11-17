@@ -21,7 +21,7 @@ import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.MethodExpression;
 import jakarta.el.MethodNotFoundException;
-import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.PartialStateHolder;
 import jakarta.faces.context.FacesContext;
 
 /**
@@ -30,15 +30,21 @@ import jakarta.faces.context.FacesContext;
  * {@link ActionListener} that wraps a {@link MethodExpression}. When it receives a {@link ActionEvent}, it executes a method on an object identified by the
  * {@link MethodExpression}.
  * </p>
+ *
+ * <p class="changed_added_5_0">
+ * Its state is set only by its constructor, or by {@link #restoreState(FacesContext, Object)} from a full state. It does not change after the build of the
+ * view, so while {@link #initialStateMarked()} returns <code>true</code>, {@link #saveState(FacesContext)} returns <code>null</code>.
+ * </p>
  */
 
-public class MethodExpressionActionListener implements ActionListener, StateHolder {
+public class MethodExpressionActionListener implements ActionListener, PartialStateHolder {
 
     // ------------------------------------------------------ Instance Variables
 
     private MethodExpression methodExpressionOneArg = null;
     private MethodExpression methodExpressionZeroArg = null;
     private boolean isTransient;
+    private boolean initialState;
     private final static Class<?>[] ACTION_LISTENER_ZEROARG_SIG = new Class<?>[] {};
 
     public MethodExpressionActionListener() {
@@ -125,12 +131,19 @@ public class MethodExpressionActionListener implements ActionListener, StateHold
      * <p class="changed_modified_2_0">
      * Both {@link MethodExpression} instances described in the constructor must be saved.
      * </p>
+     *
+     * <p class="changed_added_5_0">
+     * While {@link #initialStateMarked()} returns <code>true</code>, nothing is saved and <code>null</code> is returned.
+     * </p>
      */
     @Override
     public Object saveState(FacesContext context) {
 
         if (context == null) {
             throw new NullPointerException();
+        }
+        if (initialState) {
+            return null;
         }
         return new Object[] { methodExpressionOneArg, methodExpressionZeroArg };
 
@@ -139,6 +152,10 @@ public class MethodExpressionActionListener implements ActionListener, StateHold
     /**
      * <p class="changed_modified_2_0">
      * Both {@link MethodExpression} instances described in the constructor must be restored.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * A <code>null</code> state is ignored.
      * </p>
      */
     @Override
@@ -167,6 +184,23 @@ public class MethodExpressionActionListener implements ActionListener, StateHold
 
         isTransient = newTransientValue;
 
+    }
+
+    // ----------------------------------------- Methods from PartialStateHolder
+
+    @Override
+    public void markInitialState() {
+        initialState = true;
+    }
+
+    @Override
+    public boolean initialStateMarked() {
+        return initialState;
+    }
+
+    @Override
+    public void clearInitialState() {
+        initialState = false;
     }
 
 }
