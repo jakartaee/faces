@@ -39,9 +39,10 @@ import jakarta.faces.context.FacesContext;
  *
  * <p class="changed_added_5_0">
  * What a build produces follows in part from the <em>build time conditions</em> it evaluates, and the value such a condition produces is its <em>decision</em>.
- * A build time condition is an expression in a tag attribute which decides what components the build produces, for example the test of a conditional, the
- * branch of a choice, the range or the items of an iteration, and the path of a dynamic inclusion. For the build time conditions the implementation itself
- * provides, the rendering build evaluates the condition and the restoring build reproduces the decision the rendering build reached.
+ * A build time condition is an expression in a tag attribute which decides what components the build produces and how they are identified, for example the test
+ * of a conditional, the branch of a choice, the range or the items of an iteration, the path of a dynamic inclusion, and the id of a component. For the build
+ * time conditions the implementation itself provides, the rendering build evaluates the condition and the restoring build reproduces the decision the rendering
+ * build reached.
  * </p>
  *
  * @since 2.0
