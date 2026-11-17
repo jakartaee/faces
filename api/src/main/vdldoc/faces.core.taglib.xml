@@ -207,6 +207,24 @@
                 a method
                 that will be called when an AjaxBehaviorEvent has been
                 broadcast for the listener.</p>
+
+                <p class="changed_added_5_0">The expression must evaluate
+                to a public method that takes an
+                <code>AjaxBehaviorEvent</code> parameter, with a return
+                type of void, or to a public method that takes no
+                arguments with a return type of void. The method that
+                takes the <code>AjaxBehaviorEvent</code> is invoked
+                first. Only when that throws
+                <code>MethodNotFoundException</code>, the method that
+                takes no arguments is invoked. So when both methods exist,
+                the method that takes the <code>AjaxBehaviorEvent</code>
+                is invoked. When the expression refers to an attribute of
+                a composite component whose
+                <code>&lt;cc:attribute&gt;</code> declares a
+                <code>method-signature</code>, the method is invoked with
+                the arguments of that signature, so with the
+                <code>AjaxBehaviorEvent</code> when the signature takes
+                one.</p>
             ]]></description>
             <name>listener</name>
             <required>false</required>
@@ -698,6 +716,19 @@
               the method has no way of easily knowing where the event
               came from, but this can be useful in cases where a
               notification is needed that "an event happened".</p>
+
+              <p class="changed_added_5_0">The method that takes the
+              <code>ComponentSystemEvent</code> is invoked first. Only
+              when that throws <code>MethodNotFoundException</code>, the
+              method that takes no arguments is invoked. So when both
+              methods exist, the method that takes the
+              <code>ComponentSystemEvent</code> is invoked. When the
+              expression refers to an attribute of a composite component
+              whose <code>&lt;cc:attribute&gt;</code> declares a
+              <code>method-signature</code>, the method is invoked with
+              the arguments of that signature, so with the
+              <code>ComponentSystemEvent</code> when the signature takes
+              one.</p>
             ]]></description>
             <name>listener</name>
             <required>true</required>
@@ -2652,7 +2683,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
                 arguments with a return type of void.  In the latter case, the
                 method has no way of easily knowing where the event came from,
                 but this can be useful in cases where a notification is needed
-                that "some action happened".</span>
+                that "some action happened".</span> <span class="changed_added_5_0">When both methods exist, the method that takes the <code>ActionEvent</code> is invoked.</span>
 
                 </p>
             ]]></description>
@@ -2868,7 +2899,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
                 of void. In the latter case, the method has no way of easily
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
-                changed".</span>
+                changed".</span> <span class="changed_added_5_0">When both methods exist, the method that takes the <code>ValueChangeEvent</code> is invoked.</span>
 
                 </p>
             ]]></description>

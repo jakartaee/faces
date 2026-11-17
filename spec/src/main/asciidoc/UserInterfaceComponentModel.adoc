@@ -2159,6 +2159,15 @@ public void processEvent(jakarta.faces.event.ComponentSystemEvent event)
     throws AbortProcessingException
 ----
 
+or take no arguments. The method that takes
+the _ComponentSystemEvent_ is invoked first. Only when that throws
+_MethodNotFoundException_, the method that takes no arguments is invoked,
+in the same order as
+_jakarta.faces.event.MethodExpressionActionListener.processAction()_. So
+when both methods exist, the method that takes the _ComponentSystemEvent_
+is invoked. The same holds for the _listener_ attribute of _<f:ajax />_
+with an _AjaxBehaviorEvent_.
+
 
 [[a1403]]
 ===== Listener Registration By Annotation
