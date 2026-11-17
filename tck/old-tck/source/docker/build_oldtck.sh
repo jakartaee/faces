@@ -52,8 +52,8 @@ export TCK_NAME="jsf"
 cd $BASEDIR
 
 mkdir -p $JAKARTA_JARS
-mvn -f $BASEDIR/docker/pom.getmodules.xml clean -Pstaging dependency:copy-dependencies -DoutputDirectory="${JAKARTA_JARS}" -Dmdep.stripVersion=true
-mvn -f $BASEDIR/docker/pom.getlibs.xml clean -Pstaging dependency:copy-dependencies -DoutputDirectory="${JAKARTA_JARS}" #-Dmdep.stripVersion=true
+mvn -f $BASEDIR/docker/pom.getmodules.xml clean dependency:copy-dependencies -DoutputDirectory="${JAKARTA_JARS}" -Dmdep.stripVersion=true
+mvn -f $BASEDIR/docker/pom.getlibs.xml clean dependency:copy-dependencies -DoutputDirectory="${JAKARTA_JARS}" #-Dmdep.stripVersion=true
 
 
 RMI_CLASSES="-Drmi.classes=$JAKARTA_JARS/glassfish-corba-omgapi.jar"
