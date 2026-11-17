@@ -267,7 +267,7 @@ pipeline {
                         // leaves no ref on origin.
                         sh '''#!/bin/bash -ex
                             mvn -U -B ${MVN_EXTRA} -f tck-dist/pom.xml \\
-                                -DskipTests -Ddoclint=none -Poss-release -Pstaging \\
+                                -DskipTests -Ddoclint=none -Poss-release \\
                                 clean install
                             git tag "${RELEASE_TAG}" -m "Release Faces TCK ${RELEASE_VERSION}"
                         '''

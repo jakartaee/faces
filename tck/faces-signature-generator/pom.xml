@@ -47,14 +47,6 @@
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>jakarta-staging</id>
-            <snapshots />
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
