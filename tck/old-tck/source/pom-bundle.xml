@@ -60,14 +60,6 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>jakarta-staging</id>
-            <snapshots />
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
 
