@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec2032IT extends BaseITNG {
 
@@ -81,6 +82,41 @@ class Spec2032IT extends BaseITNG {
         assertEquals("", tfootSecondCellStyle);
         assertEquals("", tfootSecondCellClass);
         assertEquals("", tfootSecondCellTitle);
+    }
+
+    /**
+     * The pass-through attributes of an f:facet go on the element which the renderer starts around the facet, and those of the facet component on its own
+     * markup. Neither gets those of the other. This holds on a postback and on an ajax re-render as well, and in every row of a UIData which preserves its row
+     * state.
+     *
+     * @see https://github.com/jakartaee/faces/issues/2032
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/6173
+     */
+    @Test
+    void testFacetAndItsComponentKeepTheirOwnPassThroughAttributes() throws Exception {
+        var page = getPage("spec2032.xhtml");
+        assertFacetAndComponentPassThroughAttributes(page);
+
+        page.guardHttp(page.findElement(By.id("form:submit"))::click);
+        assertFacetAndComponentPassThroughAttributes(page);
+
+        page.guardAjax(page.findElement(By.id("form:ajax"))::click);
+        assertFacetAndComponentPassThroughAttributes(page);
+    }
+
+    private static void assertFacetAndComponentPassThroughAttributes(WebPage page) {
+        var headerCell = page.findElement(By.id("form:mixed")).findElement(By.tagName("thead")).findElement(By.tagName("th"));
+        var own = page.findElement(By.id("form:mixed:own"));
+
+        assertEquals("facet", headerCell.getAttribute("title"));
+        assertEquals("", headerCell.getAttribute("lang"));
+        assertEquals("en", own.getAttribute("lang"));
+        assertEquals("", own.getAttribute("title"));
+
+        for (int row = 0; row < 2; row++) {
+            var gridHeaderCell = page.findElement(By.id("form:rows:" + row + ":grid")).findElement(By.tagName("th"));
+            assertEquals("row", gridHeaderCell.getAttribute("title"));
+        }
     }
 
 }

@@ -17,10 +17,12 @@
 
 package jakarta.faces.component;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.el.ValueExpression;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.model.SelectItem;
 import jakarta.faces.model.SelectItemGroup;
@@ -374,6 +377,87 @@ public class UISelectManyTestCase extends UIInputTestCase {
         si.setItemValue("foo");
         si.setItemLabel("foo label");
         input.getChildren().add(si);
+    }
+
+    /**
+     * With <code>var</code>, the item attributes of a UISelectItems apply also to a member which is a SelectItem, to a single-valued SelectItem and to a
+     * Map.Entry of a Map value, in the iterator which validation uses. Each attribute which is not set keeps the value of the SelectItem, or the value and key
+     * of the Map.Entry. A SelectItemGroup member is kept as is.
+     */
+    @Test
+    public void testSelectItemsIteratorVarAppliesToSelectItemAndMapEntry() {
+        SelectItem member = new SelectItem("1", "one", "first", true, false, true);
+        SelectItemGroup group = new SelectItemGroup("group");
+
+        UISelectMany selectMany = new UISelectMany();
+        UISelectItems labeled = selectItems(List.of(member, group));
+        labeled.getAttributes().put("var", "i");
+        labeled.setValueExpression("itemLabel", expression("#{i.label}-label"));
+        selectMany.getChildren().add(labeled);
+        UISelectItems plain = selectItems(member);
+        plain.getAttributes().put("var", "i");
+        selectMany.getChildren().add(plain);
+        UISelectItems keyed = selectItems(Map.of("k", "v"));
+        keyed.getAttributes().put("var", "e");
+        keyed.setValueExpression("itemValue", expression("#{e.key}"));
+        selectMany.getChildren().add(keyed);
+        UISelectItems entries = selectItems(Map.of("k", "v"));
+        entries.getAttributes().put("var", "e");
+        selectMany.getChildren().add(entries);
+
+        List<String> expected = List.of(
+            "1|one-label|first|true|false|true", "group", "1|one|first|true|false|true", "k|k|null|false|true|false",
+            "v|k|null|false|true|false"
+        );
+        assertEquals(expected, describe(new SelectItemsIterator(facesContext, selectMany)));
+    }
+
+    /**
+     * With <code>var</code>, each item gets the no selection option of its own member: that of a SelectItem member, and none for a plain member after it.
+     * <code>noSelectionValue</code> marks the item with that value, and a SelectItem member without value is no match for it.
+     */
+    @Test
+    public void testSelectItemsIteratorVarKeepsNoSelectionOptionPerMember() {
+        UISelectMany selectMany = new UISelectMany();
+        UISelectItems mixed = selectItems(List.of(new SelectItem("", "Select", null, false, true, true), "a", "b"));
+        mixed.getAttributes().put("var", "i");
+        selectMany.getChildren().add(mixed);
+
+        List<String> expected = List.of("|Select|null|false|true|true", "a|a|null|false|true|false", "b|b|null|false|true|false");
+        assertEquals(expected, describe(new SelectItemsIterator(facesContext, selectMany)));
+
+        UISelectMany withValue = new UISelectMany();
+        UISelectItems marked = selectItems(Arrays.asList(new SelectItem(null, "Select"), "x", "y"));
+        marked.getAttributes().put("var", "i");
+        marked.getAttributes().put("noSelectionValue", "x");
+        withValue.getChildren().add(marked);
+
+        List<String> expectedMarked = List.of("null|Select|null|false|true|false", "x|x|null|false|true|true", "y|y|null|false|true|false");
+        assertEquals(expectedMarked, describe(new SelectItemsIterator(facesContext, withValue)));
+    }
+
+    private ValueExpression expression(String expression) {
+        return application.getExpressionFactory().createValueExpression(facesContext.getELContext(), expression, Object.class);
+    }
+
+    private static List<String> describe(Iterator<SelectItem> items) {
+        List<String> descriptions = new ArrayList<>();
+        while (items.hasNext()) {
+            SelectItem item = items.next();
+            descriptions.add(
+                item instanceof SelectItemGroup
+                    ? item.getLabel()
+                    : item.getValue() + "|" + item.getLabel() + "|" + item.getDescription() + "|" + item.isDisabled() + "|" + item.isEscape() + "|"
+                        + item.isNoSelectionOption()
+            );
+        }
+        return descriptions;
+    }
+
+    private static UISelectItems selectItems(Object value) {
+        UISelectItems items = new UISelectItems();
+        items.setValue(value);
+        return items;
     }
 
     // Create an options list with nested groups

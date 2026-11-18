@@ -45,5 +45,26 @@
                 #{item}2
             </h:column>
         </h:dataTable>
+        <h:form id="form">
+            <h:dataTable id="mixed" value="#{['one']}" var="item">
+                <h:column>
+                    <f:facet name="header" pt:title="facet">
+                        <h:outputText id="own" value="own" pt:lang="en" />
+                    </f:facet>
+                    #{item}
+                </h:column>
+            </h:dataTable>
+            <h:dataTable id="rows" value="#{[1, 2]}" var="row" rowStatePreserved="true">
+                <h:column>
+                    <h:panelGrid id="grid">
+                        <f:facet name="header" pt:title="row">header</f:facet>
+                    </h:panelGrid>
+                </h:column>
+            </h:dataTable>
+            <h:commandButton id="submit" value="submit" />
+            <h:commandButton id="ajax" value="ajax">
+                <f:ajax render="mixed rows" />
+            </h:commandButton>
+        </h:form>
     </h:body>
 </html>

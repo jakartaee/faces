@@ -1,0 +1,51 @@
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html"
+    xmlns:p="jakarta.faces.passthrough"
+>
+    <h:head>
+        <title>f:selectItems var on SelectItem members and Map entries</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:selectOneMenu id="menuSelectItems" value="#{issue6177Bean.fromSelectItems}">
+                <f:selectItems value="#{issue6177Bean.plainSelectItems}" var="item" itemValue="#{item.label}" />
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="menuMapEntries" value="#{issue6177Bean.fromMap}">
+                <f:selectItems value="#{issue6177Bean.map}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="menuPassThroughOnly" value="#{issue6177Bean.one}">
+                <f:selectItems value="#{issue6177Bean.plainSelectItems}" var="item" p:data-label="#{item.label}" />
+            </h:selectOneMenu>
+
+            <h:selectManyCheckbox id="checksMapEntries" value="#{issue6177Bean.many}">
+                <f:selectItems value="#{issue6177Bean.map}" var="entry" itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+            </h:selectManyCheckbox>
+
+            <h:commandButton id="submit" value="submit" />
+            <h:messages id="messages" />
+            <h:outputText id="result" value="#{issue6177Bean.fromSelectItems} #{issue6177Bean.fromMap} #{issue6177Bean.many}" />
+        </h:form>
+    </h:body>
+</html>
