@@ -1,0 +1,42 @@
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:pt="jakarta.faces.passthrough"
+>
+    <h:head>
+        <title>spec2032 lookup</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:dataTable id="table" binding="#{spec2032Bean.table}" value="#{['one']}" var="item">
+                <f:facet name="header" pt:title="facet" pt:role="banner">
+                    <h:outputText id="own" value="own" pt:lang="en" />
+                </f:facet>
+                <h:column>#{item}</h:column>
+            </h:dataTable>
+            <h:outputText id="facetAttributes" value="#{spec2032Bean.passThroughAttributes(spec2032Bean.table.facets.header)}" />
+            <h:outputText id="unmodifiable" value="#{spec2032Bean.isUnmodifiable(spec2032Bean.table.facets.header)}" />
+            <h:outputText id="tableAttributes" value="#{spec2032Bean.passThroughAttributes(spec2032Bean.table)}" />
+            <h:commandButton id="submit" value="submit" />
+        </h:form>
+    </h:body>
+</html>
