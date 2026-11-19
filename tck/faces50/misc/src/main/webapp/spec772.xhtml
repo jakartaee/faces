@@ -1,0 +1,64 @@
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html"
+    xmlns:pt="jakarta.faces.passthrough"
+>
+    <h:head>
+        <title>f:selectItems with a Map value</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:selectOneMenu id="nested" value="#{spec772Bean.nested}">
+                <f:selectItemGroups value="#{spec772Bean.categories}" var="category" itemLabel="#{category.name}">
+                    <f:selectItems value="#{category.products}" />
+                </f:selectItemGroups>
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="nestedVar" value="#{spec772Bean.nestedVar}">
+                <f:selectItemGroups value="#{spec772Bean.categories}" var="category" itemLabel="#{category.name}">
+                    <f:selectItems value="#{category.products}" var="entry" itemValue="v#{entry.value}" itemLabel="#{entry.key}:#{entry.value}" />
+                </f:selectItemGroups>
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="directVar" value="#{spec772Bean.directVar}">
+                <f:selectItems value="#{spec772Bean.products}" var="entry" itemValue="v#{entry.value}" itemLabel="#{entry.key}:#{entry.value}" pt:data-key="k#{entry.key}" />
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="groups" value="#{spec772Bean.group}">
+                <f:selectItemGroups value="#{spec772Bean.categoryMap}" var="category">
+                    <f:selectItems value="#{category.value}" />
+                </f:selectItemGroups>
+            </h:selectOneMenu>
+
+            <h:selectOneMenu id="direct">
+                <f:selectItems value="#{spec772Bean.products}" />
+            </h:selectOneMenu>
+
+            <h:commandButton id="submit" value="submit" />
+            <h:messages id="messages" />
+            <h:outputText id="nestedResult" value="[#{spec772Bean.nested}]" />
+            <h:outputText id="nestedVarResult" value="[#{spec772Bean.nestedVar}]" />
+            <h:outputText id="directVarResult" value="[#{spec772Bean.directVar}]" />
+            <h:outputText id="groupResult" value="[#{spec772Bean.group}]" />
+        </h:form>
+    </h:body>
+</html>

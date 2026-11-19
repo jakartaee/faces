@@ -32,9 +32,13 @@ import jakarta.faces.model.SelectItem;
  * order.</li>
  * <li><em>Collection of {@link SelectItem}</em> - This set of instances is added to the set of available options for the parent component, in the order
  * provided by an iterator over them.</li>
- * <li><em>Map</em> - The keys of this object (once converted to Strings) are assumed to be labels, and the values of this object (once converted to Strings)
- * are assumed to be values, of {@link SelectItem} instances that will be constructed dynamically and added to the set of available options for the parent
- * component, in the order provided by an iterator over the keys.</li>
+ * <li><em>Map</em> - <span class="changed_modified_5_0">A {@link SelectItem} instance is constructed dynamically for each entry of this object and added to the
+ * set of available options for the parent component, in the order provided by an iterator over the entries. Without <code>itemValue</code> the value of the
+ * item is the value of the entry. Without <code>itemLabel</code> its label is the key of the entry converted to a <code>String</code>, or an empty string when
+ * the key is <code>null</code>.</span> <span class="changed_added_5_0">When the <code>var</code> attribute is set, the <code>Map.Entry</code> of the current
+ * item is exposed under that key while the <code>itemValue</code>, <code>itemLabel</code>, <code>itemDescription</code>, <code>itemDisabled</code>,
+ * <code>itemLabelEscaped</code>, <code>noSelectionValue</code> and pass-through attributes are evaluated. These rules also apply to a
+ * <code>UISelectItems</code> which is nested in a {@link UISelectItemGroups}.</span></li>
  * </ul>
  */
 

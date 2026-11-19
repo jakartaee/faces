@@ -32,7 +32,10 @@ import jakarta.faces.model.SelectItemGroup;
  * of one or more {@link SelectItemGroup} of one or more {@link SelectItem} instances to the list of available options in the parent component. This component
  * accepts only children of type {@link UISelectItems} or {@link UISelectItem}. The <code>value</code> attribute of this component, set either directly, or
  * acquired indirectly via a {@link jakarta.el.ValueExpression}, can be an array or {@link Iterable} of items of any type which is acceptable by the
- * <code>value</code> attribute of any nested {@link UISelectItems} or {@link UISelectItem} component.
+ * <code>value</code> attribute of any nested {@link UISelectItems} or {@link UISelectItem} component. <span class="changed_added_5_0">It can also be a
+ * <code>Map</code>, of which each entry is an item, exposed as a <code>Map.Entry</code> under the key specified by the <code>var</code> property. Without
+ * <code>itemLabel</code> the label of its group is the key of the entry converted to a <code>String</code>, or an empty string when the key is
+ * <code>null</code>.</span>
  * </p>
  *
  * @since 4.0
@@ -56,6 +59,10 @@ public class UISelectItemGroups extends UISelectItems {
      * Iterate over the <code>value</code> attribute and wrap each item in a new {@link SelectItemGroup} instance whereby the item is exposed as a request
      * attribute under the key specified by the <code>var</code> property. This must allow any nested {@link UISelectItems} or {@link UISelectItem} component to
      * access the item via their attributes. Finally return these {@link SelectItemGroup} instances as an ordered collection.
+     * </p>
+     * <p class="changed_added_5_0">
+     * The value of each {@link SelectItemGroup} is the item which produced it, also when the <code>itemValue</code> attribute is set, because a group has no
+     * value of its own. Renderers use it to expose the item under the key specified by the <code>var</code> property again while the group is rendered.
      * </p>
      */
     @Override

@@ -31,6 +31,7 @@ import java.util.Optional;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -132,10 +133,31 @@ class PackageUtils {
     {
         Map<String, Object> attributes = component.getAttributes();
         String var = coalesce((String) attributes.get("var"), "item");
+        Function<Object, S> factory = values instanceof Map
+            ? entry -> createMapEntrySelectItem(component, (Map.Entry<?, ?>) entry, supplier)
+            : value -> createSelectItem(component, value, supplier);
         stream(values).forEach(
             value -> new ScopedRunner(context).with(var, value)
-                .invoke(() -> callback.accept(createSelectItem(component, value, supplier)))
+                .invoke(() -> callback.accept(factory.apply(value)))
         );
+    }
+
+    /**
+     * Creates a select item for the given entry of a <code>Map</code> value of the given component. Without <code>itemLabel</code> its label is the key of the
+     * entry. Without <code>itemValue</code> its value is the value of the entry. The value of a group which a {@link UISelectItemGroups} creates is always the
+     * entry itself.
+     */
+    private static <S extends SelectItem> S createMapEntrySelectItem(UIComponent component, Map.Entry<?, ?> entry, Supplier<S> supplier) {
+        Object value = component instanceof UISelectItemGroups ? entry : entry.getValue();
+        return createSelectItem(component, value, toLabel(entry.getKey()), supplier);
+    }
+
+    /**
+     * Returns the label for the given key of an entry of a <code>Map</code> value of a {@link UISelectItems} or {@link UISelectItemGroups}: its string form, or
+     * an empty string when it is <code>null</code>.
+     */
+    static String toLabel(Object key) {
+        return key != null ? key.toString() : "";
     }
 
     /**
@@ -143,9 +165,17 @@ class PackageUtils {
      * the member itself, so that its <code>var</code> can be exposed again while the group is rendered.
      */
     public static <S extends SelectItem> S createSelectItem(UIComponent component, Object value, Supplier<S> supplier) {
+        return createSelectItem(component, value, null, supplier);
+    }
+
+    /**
+     * Creates a select item for the given member of the value of the given component, labeled with the given default label when the <code>itemLabel</code>
+     * attribute is not set, or with its value when the default label is <code>null</code> too.
+     */
+    private static <S extends SelectItem> S createSelectItem(UIComponent component, Object value, String defaultLabel, Supplier<S> supplier) {
         Map<String, Object> attributes = component.getAttributes();
         Object itemValue = component instanceof UISelectItemGroups ? value : getItemValue(attributes, value);
-        Object itemLabel = attributes.get("itemLabel");
+        Object itemLabel = coalesce(attributes.get("itemLabel"), defaultLabel);
         Object itemEscaped = coalesce(attributes.get("itemEscaped"), attributes.get("itemLabelEscaped")); // f:selectItem || f:selectItems -- TODO: this should
                                                                                                           // be aligned in their APIs.
         Object itemDisabled = attributes.get("itemDisabled");
