@@ -109,6 +109,18 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     }
 
     /**
+     * <p class="changed_added_5_0">
+     * The default behavior of this method is to call {@link ViewHandler#createViewMap(FacesContext)} on the wrapped {@link ViewHandler} object.
+     * </p>
+     *
+     * @since 5.0
+     */
+    @Override
+    public Map<String, Object> createViewMap(FacesContext context) {
+        return getWrapped().createViewMap(context);
+    }
+
+    /**
      * <p>
      * The default behavior of this method is to call {@link ViewHandler#renderView(jakarta.faces.context.FacesContext, jakarta.faces.component.UIViewRoot)} on
      * the wrapped {@link ViewHandler} object.

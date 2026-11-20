@@ -831,6 +831,7 @@ meth public java.lang.String getBookmarkableURL(jakarta.faces.context.FacesConte
 meth public java.lang.String getRedirectURL(jakarta.faces.context.FacesContext,java.lang.String,java.util.Map<java.lang.String,java.util.List<java.lang.String>>,boolean)
  anno 0 java.lang.Deprecated(boolean forRemoval=true, java.lang.String since="5.0")
 meth public java.lang.String getRedirectURL(jakarta.faces.context.FacesContext,java.lang.String,java.util.Map<java.lang.String,java.util.List<java.lang.String>>,java.lang.String,boolean)
+meth public java.util.Map<java.lang.String,java.lang.Object> createViewMap(jakarta.faces.context.FacesContext)
 meth public java.util.Set<java.lang.String> getProtectedViewsUnmodifiable()
 meth public void addProtectedView(java.lang.String)
 meth public void initView(jakarta.faces.context.FacesContext)
@@ -863,6 +864,7 @@ meth public java.lang.String getRedirectURL(jakarta.faces.context.FacesContext,j
 meth public java.lang.String getResourceURL(jakarta.faces.context.FacesContext,java.lang.String)
 meth public java.lang.String getWebsocketURL(jakarta.faces.context.FacesContext,java.lang.String)
 meth public java.util.Locale calculateLocale(jakarta.faces.context.FacesContext)
+meth public java.util.Map<java.lang.String,java.lang.Object> createViewMap(jakarta.faces.context.FacesContext)
 meth public java.util.Set<java.lang.String> getProtectedViewsUnmodifiable()
 meth public void addProtectedView(java.lang.String)
 meth public void initView(jakarta.faces.context.FacesContext)
@@ -1618,8 +1620,8 @@ meth public void setViewId(java.lang.String)
 meth public void subscribeToViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 meth public void unsubscribeFromViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 supr jakarta.faces.component.UIComponentBase
-hfds ACTIVE_VIEW_MAPS_KEY,LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,VIEW_MAP_ID_KEY,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners,viewMap,viewScopeStateRestored
-hcls DoResetValues,PropertyKeys,ViewMap
+hfds LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners,viewMap,viewScopeStateRestored
+hcls DoResetValues,PropertyKeys
 
 CLSS public jakarta.faces.component.UIWebsocket
 cons public init()
