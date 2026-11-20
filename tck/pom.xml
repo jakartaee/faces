@@ -82,19 +82,11 @@
 
         <!-- GlassFish server properties -->
         <glassfish.version>9.0.0-M4</glassfish.version>
-        <arquillian.glassfish.version>2.2.0</arquillian.glassfish.version>
+        <arquillian.glassfish.version>2.2.2</arquillian.glassfish.version>
         <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
         <mojarra.noupdate>false</mojarra.noupdate>
 
         <!-- GlassFish pool configuration -->
-        <gf.pool.size>1</gf.pool.size>
-        <gf.pool.dir>${maven.multiModuleProjectDirectory}/target/pool</gf.pool.dir>
-        <gf.pool.dist>${maven.multiModuleProjectDirectory}/target/dist</gf.pool.dist>
-        <gf.pool.source>${gf.pool.dist}/glassfish9</gf.pool.source>
-        <gf.pool.adminBase>14848</gf.pool.adminBase>
-        <gf.pool.portStride>100</gf.pool.portStride>
-        <gf.pool.unpack.skip>false</gf.pool.unpack.skip>
-        <gf.pool.skip>false</gf.pool.skip>
         <gf.pool.overlay.skip>${mojarra.noupdate}</gf.pool.overlay.skip>
         <gf.pool.restartOnRelease>false</gf.pool.restartOnRelease>
 
@@ -374,20 +366,9 @@
                     <artifactId>glassfish-pool-maven-plugin</artifactId>
                     <version>${arquillian.glassfish.version}</version>
                     <configuration>
-                        <poolDir>${gf.pool.dir}</poolDir>
-                        <poolSource>${gf.pool.source}</poolSource>
-                        <poolSize>${gf.pool.size}</poolSize>
-                        <adminPortBase>${gf.pool.adminBase}</adminPortBase>
-                        <portStride>${gf.pool.portStride}</portStride>
-                        <stageDir>${gf.pool.dist}</stageDir>
-                        <unpackSkip>${gf.pool.unpack.skip}</unpackSkip>
                         <distribution>
-                            <groupId>org.glassfish.main.distributions</groupId>
-                            <artifactId>glassfish</artifactId>
                             <version>${glassfish.version}</version>
-                            <type>zip</type>
                         </distribution>
-                        <overlaySkip>${gf.pool.overlay.skip}</overlaySkip>
                         <overlays>
                             <overlay>
                                 <groupId>jakarta.faces</groupId>
@@ -689,16 +670,8 @@
 
         <!--
             Eclipse runs Maven through m2e's embedded runtime, which sets m2e.version. The pool is bound to
-            initialize so that running a single module provisions it (see the pool-up execution), but that also
-            means any build Eclipse starts brings a GlassFish up before it does anything else, and nothing in a
-            build that stops early ever brings it down: only pre-clean on the root aggregator does. Such a domain
-            then sits on the pool's admin ports for as long as the IDE is open.
-
-            It is also unreclaimable, because m2e does not set maven.multiModuleProjectDirectory (the mvn shell
-            script does, which is what tck/.mvn pins), so an Eclipse-started pool lands in a directory literally
-            named ${maven.multiModuleProjectDirectory} instead of the one a later mvn clean reclaims.
-
-            Provision the pool from a shell then, not from the IDE.
+            initialize (see the pool-up execution), so every build Eclipse starts would bring a GlassFish up
+            before it does anything else. Provision the pool from a shell, not from the IDE.
         -->
         <profile>
             <id>skip-gf-pool-in-eclipse</id>
@@ -764,36 +737,18 @@
                 <plugins>
                     <plugin>
                         <!--
-                            Each test module calls pool:up at initialize. up() is
-                            JVM-wide synchronized + idempotent (early-exit if
-                            every slot is healthy), so under -TN only the first
-                            module provisions; the rest fast-exit. Configuration
-                            (pool layout + staging spec) is inherited from the
-                            root pluginManagement entry.
+                            The extension shares one pool across the build, stops it after the build, and forwards
+                            the pool layout to failsafe. up is bound to initialize so the pool boots while the
+                            module compiles; the first module starts it, the rest find it running.
                         -->
                         <groupId>ee.omnifish.arquillian</groupId>
                         <artifactId>glassfish-pool-maven-plugin</artifactId>
+                        <extensions>true</extensions>
                         <executions>
                             <execution>
                                 <id>pool-up</id>
                                 <phase>initialize</phase>
                                 <goals><goal>up</goal></goals>
-                            </execution>
-                            <!--
-                                clean deletes target/pool while the slot JVMs keep running, which
-                                orphans them: the next up() finds no ports.properties, provisions a
-                                fresh slot and start-domain then collides on the admin port. Stop
-                                the domains before their directories go away.
-
-                                Not inherited: pre-clean runs per module, so an inherited binding
-                                would let one module's clean stop slots a parallel module is still
-                                testing against. Only the root aggregator reclaims the pool.
-                            -->
-                            <execution>
-                                <id>pool-down-before-clean</id>
-                                <phase>pre-clean</phase>
-                                <inherited>false</inherited>
-                                <goals><goal>down</goal></goals>
                             </execution>
                         </executions>
                     </plugin>
@@ -801,17 +756,6 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <!--
-                                    gf.pool.source/adminBase/portStride forward the build's
-                                    pool layout to the test JVM so SlotLeaser can grow the
-                                    pool from inside the test process when -TN > pool.size
-                                    (e.g. -T4 with default pool.size=1). Without source the
-                                    leaser falls back to waiting on an existing slot.
-                                -->
-                                <gf.pool.dir>${gf.pool.dir}</gf.pool.dir>
-                                <gf.pool.source>${gf.pool.source}</gf.pool.source>
-                                <gf.pool.adminBase>${gf.pool.adminBase}</gf.pool.adminBase>
-                                <gf.pool.portStride>${gf.pool.portStride}</gf.pool.portStride>
                                 <gf.pool.restartOnRelease>${gf.pool.restartOnRelease}</gf.pool.restartOnRelease>
                                 <test.selenium>${test.selenium}</test.selenium>
                                 <java.util.logging.config.useDefaults>true</java.util.logging.config.useDefaults>
