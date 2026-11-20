@@ -47,6 +47,7 @@ public class Spec772Bean {
     }
 
     private final Map<String, String> products = new LinkedHashMap<>();
+    private final Map<String, String> nullValueProducts = new LinkedHashMap<>();
     private final List<Category> categories = List.of(new Category("fruit", products));
     private final Map<String, Map<String, String>> categoryMap = new LinkedHashMap<>();
     private String nested = "a";
@@ -60,10 +61,16 @@ public class Spec772Bean {
         products.put("Banana", null);
         categoryMap.put("fruit", products);
         categoryMap.put(null, Map.of("Cherry", "c"));
+        nullValueProducts.put("Apple", "a");
+        nullValueProducts.put("Banana", null);
     }
 
     public Map<String, String> getProducts() {
         return products;
+    }
+
+    public Map<String, String> getNullValueProducts() {
+        return nullValueProducts;
     }
 
     public List<Category> getCategories() {

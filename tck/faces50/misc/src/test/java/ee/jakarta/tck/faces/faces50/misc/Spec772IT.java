@@ -32,7 +32,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
  * For a Map value of f:selectItems, the value of each item is the value of the entry, and its label is the key of the entry converted to a String, or an empty
  * string when the key is <code>null</code>. With <code>var</code>, the Map.Entry of the current item is exposed while the item attributes and pass-through
  * attributes are evaluated. This also applies to an f:selectItems nested in f:selectItemGroups, as the javadoc of UISelectItems specifies. For a Map value of
- * f:selectItemGroups, the label of each group is the key of its entry, and <code>var</code> exposes the Map.Entry to the nested f:selectItems.
+ * f:selectItemGroups, the label of each group is the key of its entry, and <code>var</code> exposes the Map.Entry to the nested f:selectItems. A
+ * <code>null</code> value of an entry stays <code>null</code>.
  *
  * @see <a href="https://github.com/jakartaee/faces/issues/772">issue 772</a>
  */
@@ -114,6 +115,19 @@ class Spec772IT extends BaseITNG {
 
         assertEquals(List.of("a", "n", ""), valuesOf("direct"));
         assertEquals(LABELS, labelsOf("direct"));
+    }
+
+    /**
+     * A Map value of an f:selectItems directly in the select component keeps a <code>null</code> value of an entry as the value of its item. While the value of
+     * the select component is <code>null</code>, that item is therefore rendered selected, as "Rendering the option elements" of the Listbox renderer specifies
+     * for a <code>null</code> item value.
+     */
+    @Test
+    void testNullValueOfMapValueStaysNull() {
+        page = getPage("spec772-nullValue.xhtml");
+
+        assertEquals(List.of("a", ""), valuesOf("direct"));
+        assertEquals("", selectedValueOf("direct"));
     }
 
     private void select(String id, String value) {
