@@ -2720,6 +2720,7 @@ meth public java.lang.String getOnmouseout()
 meth public java.lang.String getOnmouseover()
 meth public java.lang.String getOnmouseup()
 meth public java.lang.String getOnselect()
+meth public java.lang.String getPlaceholder()
 meth public java.lang.String getRole()
 meth public java.lang.String getStyle()
 meth public java.lang.String getStyleClass()
@@ -2747,6 +2748,7 @@ meth public void setOnmouseout(java.lang.String)
 meth public void setOnmouseover(java.lang.String)
 meth public void setOnmouseup(java.lang.String)
 meth public void setOnselect(java.lang.String)
+meth public void setPlaceholder(java.lang.String)
 meth public void setReadonly(boolean)
 meth public void setRedisplay(boolean)
 meth public void setRole(java.lang.String)
@@ -2780,6 +2782,7 @@ fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKey
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys onmouseover
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys onmouseup
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys onselect
+fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys placeholder
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys readonly
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys redisplay
 fld public final static jakarta.faces.component.html.HtmlInputSecret$PropertyKeys role
