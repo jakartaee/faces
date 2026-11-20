@@ -77,6 +77,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
         onmouseover,
         onmouseup,
         onselect,
+        placeholder,
         readonly,
         redisplay,
         role,
@@ -647,6 +648,36 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
     public void setOnselect(java.lang.String onselect) {
         getStateHelper().put(PropertyKeys.onselect, onselect);
         handleAttribute(this, "onselect", onselect);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return the value of the <code>placeholder</code> property.
+     * </p>
+     *
+     * @return the property value
+     * <p>
+     * Contents: The placeholder attribute represents a short hint (a word or short phrase) intended to aid the user with data entry.
+     *
+     * @since 5.0
+     */
+    public java.lang.String getPlaceholder() {
+        return (java.lang.String) getStateHelper().eval(PropertyKeys.placeholder);
+
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Set the value of the <code>placeholder</code> property.
+     * </p>
+     *
+     * @param placeholder the new property value
+     *
+     * @since 5.0
+     */
+    public void setPlaceholder(java.lang.String placeholder) {
+        getStateHelper().put(PropertyKeys.placeholder, placeholder);
+        handleAttribute(this, "placeholder", placeholder);
     }
 
     /**
