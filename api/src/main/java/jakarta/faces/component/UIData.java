@@ -842,6 +842,18 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
 
     }
 
+    @Override
+    void clearCachedClientId() {
+        super.clearCachedClientId();
+        baseClientId = null;
+        clientIdBuilder = null;
+    }
+
+    @Override
+    void clearParentChainDependentState() {
+        nestedIterators.clearNested();
+    }
+
     /**
      * <p>
      * Return a client identifier for this component that includes the current value of the <code>rowIndex</code> property, if it is not set to -1. This implies

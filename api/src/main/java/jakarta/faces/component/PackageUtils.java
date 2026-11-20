@@ -258,17 +258,27 @@ class PackageUtils {
         }
     }
 
-    public static boolean isNestedInIterator(FacesContext context, UIComponent component) {
+    /**
+     * Returns whether the given component is nested in an iterating component, or {@code null} when it is not and it is in a detached subtree, which can still
+     * get an iterating ancestor when it is added again.
+     *
+     * @param context the faces context.
+     * @param component the component.
+     * @return whether the given component is nested in an iterating component, or {@code null} when that is not yet known.
+     */
+    static Boolean isNestedInIterator(FacesContext context, UIComponent component) {
         UIComponent parent = component.getParent();
 
         if (parent == null) {
-            return false;
+            return null;
         }
 
+        UIComponent root = parent;
         for (UIComponent p = parent; p != null; p = p.getParent()) {
             if (p instanceof UIData || p.getClass().getName().contains("UIRepeat")) {
                 return true;
             }
+            root = p;
         }
 
         // https://github.com/eclipse-ee4j/mojarra/issues/4957
@@ -281,7 +291,11 @@ class PackageUtils {
                 return Pattern.compile(".+" + separatorChar + "[0-9]+" + separatorChar + ".+");
             });
 
-        return clientIdNestedInIteratorPattern.matcher(parent.getClientId(context)).matches();
+        if (clientIdNestedInIteratorPattern.matcher(parent.getClientId(context)).matches()) {
+            return true;
+        }
+
+        return root instanceof UIViewRoot ? false : null;
     }
 
     /**

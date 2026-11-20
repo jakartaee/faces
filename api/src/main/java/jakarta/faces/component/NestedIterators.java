@@ -38,14 +38,20 @@ import jakarta.faces.context.FacesContext;
  * <p>
  * The <code>ui:repeat</code> component is not part of the API. It is recognized by the same class name check as
  * {@link PackageUtils#isNestedInIterator(FacesContext, UIComponent)}, and moved through its public <code>int getRowIndex()</code> and
- * <code>void setRowIndex(int)</code>. One without those methods is not moved.
+ * <code>void setRowIndex(int)</code>. One without those methods is not moved. Its public <code>void clearNested()</code>, when it has one, forgets whether it
+ * is nested in an iterating component.
  */
 final class NestedIterators {
 
     private static final String REPEAT_CLASS_NAME = "UIRepeat";
 
+    private static final int GET_ROW_INDEX = 0;
+    private static final int SET_ROW_INDEX = 1;
+    private static final int CLEAR_NESTED = 2;
+
     /**
-     * The <code>getRowIndex()</code> and <code>setRowIndex(int)</code> handles of a <code>ui:repeat</code> class, or {@code null} for any other class.
+     * The <code>getRowIndex()</code>, <code>setRowIndex(int)</code> and <code>clearNested()</code> handles of a <code>ui:repeat</code> class, or {@code null}
+     * for any other class. The <code>clearNested()</code> handle is {@code null} when the class has no such method.
      */
     private static final ClassValue<MethodHandle[]> REPEAT_ROW_INDEX_HANDLES = new ClassValue<>() {
 
@@ -57,7 +63,16 @@ final class NestedIterators {
             try {
                 MethodHandles.Lookup lookup = MethodHandles.publicLookup();
                 return new MethodHandle[] { lookup.findVirtual(type, "getRowIndex", methodType(int.class)),
-                    lookup.findVirtual(type, "setRowIndex", methodType(void.class, int.class)) };
+                    lookup.findVirtual(type, "setRowIndex", methodType(void.class, int.class)), findClearNested(lookup, type) };
+            }
+            catch (NoSuchMethodException | IllegalAccessException e) {
+                return null;
+            }
+        }
+
+        private MethodHandle findClearNested(MethodHandles.Lookup lookup, Class<?> type) {
+            try {
+                return lookup.findVirtual(type, "clearNested", methodType(void.class));
             }
             catch (NoSuchMethodException | IllegalAccessException e) {
                 return null;
@@ -105,16 +120,52 @@ final class NestedIterators {
     }
 
     /**
-     * Returns whether the owner is nested in an iterating component. The result is computed once per owner.
+     * Returns whether the owner is nested in an iterating component. The result is computed once per owner, until {@link #clearNested()}. A negative result is
+     * only remembered when the owner is in a {@link UIViewRoot}: an owner in a detached subtree can still get an iterating ancestor when that subtree is added
+     * again.
      *
      * @param context the faces context.
      * @return whether the owner is nested in an iterating component.
      */
     boolean isNested(FacesContext context) {
         if (nested == null) {
-            nested = PackageUtils.isNestedInIterator(context, owner);
+            Boolean result = PackageUtils.isNestedInIterator(context, owner);
+            if (result == null) {
+                return false;
+            }
+            nested = result;
         }
         return nested;
+    }
+
+    /**
+     * Forgets whether the owner is nested in an iterating component, so that the next {@link #isNested(FacesContext)} computes it again. Called when the parent
+     * chain of the owner changes.
+     */
+    void clearNested() {
+        nested = null;
+    }
+
+    /**
+     * Forgets whether the given component is nested in an iterating component, when it is a <code>ui:repeat</code> with a public <code>clearNested()</code>.
+     * Called when the parent chain of the given component changes.
+     *
+     * @param component the component.
+     */
+    static void clearNestedOf(UIComponent component) {
+        MethodHandle[] handles = REPEAT_ROW_INDEX_HANDLES.get(component.getClass());
+        if (handles == null || handles[CLEAR_NESTED] == null) {
+            return;
+        }
+        try {
+            handles[CLEAR_NESTED].invoke(component);
+        }
+        catch (RuntimeException | Error e) {
+            throw e;
+        }
+        catch (Throwable e) {
+            throw new FacesException(e);
+        }
     }
 
     /**
@@ -177,7 +228,7 @@ final class NestedIterators {
             return ((UIData) component).getRowIndex();
         }
         try {
-            return (int) REPEAT_ROW_INDEX_HANDLES.get(component.getClass())[0].invoke(component);
+            return (int) REPEAT_ROW_INDEX_HANDLES.get(component.getClass())[GET_ROW_INDEX].invoke(component);
         }
         catch (RuntimeException | Error e) {
             throw e;
@@ -193,7 +244,7 @@ final class NestedIterators {
             return;
         }
         try {
-            REPEAT_ROW_INDEX_HANDLES.get(component.getClass())[1].invoke(component, rowIndex);
+            REPEAT_ROW_INDEX_HANDLES.get(component.getClass())[SET_ROW_INDEX].invoke(component, rowIndex);
         }
         catch (RuntimeException | Error e) {
             throw e;
