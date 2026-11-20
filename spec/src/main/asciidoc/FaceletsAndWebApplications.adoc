@@ -419,14 +419,25 @@ Pass through attributes may be specified on _<f:facet>_ tags using the
 _jakarta.faces.passthrough_ XML namespace described above. When pass through
 attributes are declared on a facet, the following behavior applies:
 
-* If the _<f:facet>_ tag contains pass through attributes but no child _UIComponent_,
-the runtime must automatically create a _UIComponent_ with component-family of
-_jakarta.faces.Panel_ and renderer-type _jakarta.faces.Group_ as the facet component.
-The pass through attributes must be associated with this automatically created component.
+* The facet component is the single child component of the _<f:facet>_ tag. If the tag
+has several child components, the automatically created _UIPanel_ which contains them is
+the facet component. If the tag contains pass through attributes but no child
+_UIComponent_, the runtime must automatically create a _UIPanel_ as the facet component
+as well.
 
-* When rendering a facet that has pass through attributes, the renderer must write
-the pass through attributes to the parent component's rendered output at the point
-where the facet is rendered.
+* The pass through attributes of the _<f:facet>_ tag belong to the _<f:facet>_ tag, not
+to the facet component. They must not be added to the pass through attributes of the
+facet component, and the facet component must not render them. When the tag has pass
+through attributes, the runtime must store them in the _TransientStateHelper_ of the facet component under the key
+_FacetHandler.PASS_THROUGH_ATTRIBUTES_KEY_, so that any renderer can obtain them with
+_FacetHandler.getPassThroughAttributes()_.
+
+* When rendering a facet whose _<f:facet>_ tag has pass through attributes, the renderer
+must write these to the parent component's rendered output at the point where the
+facet is rendered. The pass through attributes of the facet component itself are
+rendered by the facet component on its own markup, as for any other component. If the
+renderer does not start an element around the facet, such as for the _colgroups_ facet of
+_h:dataTable_, the pass through attributes of the _<f:facet>_ tag are not rendered.
 
 For example:
 
@@ -444,11 +455,13 @@ For example:
 In this example:
 
 * The _header_ facet contains both a child component and pass through attributes.
-The _styleClass_ and _role_ attributes will be rendered on the table's header element.
+The _styleClass_ and _role_ attributes will be rendered on the table's header element,
+not on the markup of the _h:outputText_.
 
 * The _footer_ facet contains only pass through attributes without a child component.
 A _UIPanel_ is automatically created as the facet component, and the _class_ attribute
-will be rendered on the table's footer element.
+will be rendered on the table's footer element. The automatically created _UIPanel_
+itself renders no markup.
 
 
 ._Pass Through Elements_

@@ -1514,7 +1514,9 @@
        <code>colgroup</code> and <code>col</code> elements per the HTML
        Table specification.  Use of column grouping can improve
        accessibility.  This facet must be rendered before the table
-       header and footer.</p>
+       header and footer.  <span class="changed_added_5_0">No element
+       is rendered around this facet, so the pass through attributes of
+       its <code>&lt;f:facet&gt;</code> tag are not rendered.</span></p>
 
      </ul>
 

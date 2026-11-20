@@ -54,6 +54,15 @@
                     #{item}
                 </h:column>
             </h:dataTable>
+            <h:dataTable id="multi" value="#{['one']}" var="item">
+                <h:column>
+                    <f:facet name="header" pt:title="facet">
+                        <h:outputText id="first" value="first" pt:lang="en" />
+                        <h:outputText id="second" value="second" pt:dir="ltr" />
+                    </f:facet>
+                    #{item}
+                </h:column>
+            </h:dataTable>
             <h:dataTable id="rows" value="#{[1, 2]}" var="row" rowStatePreserved="true">
                 <h:column>
                     <h:panelGrid id="grid">
@@ -63,7 +72,7 @@
             </h:dataTable>
             <h:commandButton id="submit" value="submit" />
             <h:commandButton id="ajax" value="ajax">
-                <f:ajax render="mixed rows" />
+                <f:ajax render="mixed multi rows" />
             </h:commandButton>
         </h:form>
     </h:body>
