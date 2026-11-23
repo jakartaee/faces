@@ -19,6 +19,7 @@ package jakarta.faces.application;
 
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,11 +31,13 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import jakarta.faces.FacesException;
+import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseListener;
+import jakarta.faces.event.PreDestroyViewMapEvent;
 import jakarta.faces.push.PushContext;
 import jakarta.faces.view.ViewDeclarationLanguage;
 
@@ -258,6 +261,36 @@ public abstract class ViewHandler {
      * @return the viewroot.
      */
     public abstract UIViewRoot createView(FacesContext context, String viewId);
+
+    /**
+     * <p class="changed_added_5_0">
+     * Create and return a new <code>Map</code> for the view scope of the current view. {@link UIViewRoot#getViewMap(boolean)} calls this method when it creates
+     * its view map.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * The returned <code>Map</code> must implement {@link StateHolder}, must not be transient, and must be of a public class with a public no-argument
+     * constructor, because {@link UIViewRoot} saves and restores it as part of its own state. Its {@link StateHolder#saveState} must not return the entries of
+     * the <code>Map</code>, but only what the <code>Map</code> needs to reconnect itself to the data store of the view scope after
+     * {@link StateHolder#restoreState}. When that data store no longer exists, the restored <code>Map</code> must behave as a new, empty <code>Map</code>.
+     * Calling <code>clear()</code> on the <code>Map</code> must publish a {@link PreDestroyViewMapEvent}, as specified in
+     * {@link UIViewRoot#getViewMap(boolean)}.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * The default implementation throws <code>UnsupportedOperationException</code>. A <code>ViewHandler</code> which does not extend {@link ViewHandlerWrapper}
+     * must override this method.
+     * </p>
+     *
+     * @param context the {@link FacesContext} for the current request
+     * @return a new <code>Map</code> for the view scope of the current view
+     * @throws NullPointerException if <code>context</code> is <code>null</code>
+     * @since 5.0
+     */
+    public Map<String, Object> createViewMap(FacesContext context) {
+        requireNonNull(context, "context");
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * <p>
