@@ -18,7 +18,6 @@ package ee.jakarta.tck.faces.faces23.localized_composite;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -27,17 +26,6 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue5160IT extends BaseITNG {
-
-    @Override
-    @AfterEach
-    protected void tearDown() {
-        // Each test sets a different Accept-Language via addRequestHeader, which
-        // is additive on the underlying Chrome instance; reusing the driver would
-        // make subsequent tests send all previously-set languages stacked together
-        // and the wrong locale would win. Discard the driver so the next test
-        // starts with a clean header set.
-        discardWebDriver();
-    }
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.

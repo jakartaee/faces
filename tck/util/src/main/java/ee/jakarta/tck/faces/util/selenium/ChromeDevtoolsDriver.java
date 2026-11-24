@@ -37,6 +37,7 @@ import java.net.URLDecoder;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -129,6 +130,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     private ReentrantLock cycleDataWriteLock = new ReentrantLock();
     private boolean firstRequest = true;
     private String lastGet;
+    private final Set<String> sessionWindowHandles = new HashSet<>();
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(Locale.US);
@@ -220,20 +222,26 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         // We always store the last request for further reference
         initNetworkListeners(devTools);
-        initDevTools(devTools);
-        disableCache(devTools);
+        if (sessionWindowHandles.add(delegate.getWindowHandle())) {
+            createSession(devTools);
+        }
+        clearAndDisableCache(devTools);
     }
 
-    private static void disableCache(DevTools devTools) {
+    private static void clearAndDisableCache(DevTools devTools) {
+        devTools.send(Network.clearBrowserCache());
         devTools.send(Network.setCacheDisabled(true));
     }
 
-    private static void initDevTools(DevTools devTools) {
+    /**
+     * Creates a CDP session on the current window with the network domain enabled. Call it once per window: {@link #reset()} does not close sessions, and each
+     * session reports every network event to the listeners.
+     */
+    private static void createSession(DevTools devTools) {
         // A createSession() failure leaves the CDP WebSocket dead; subsequent sends cannot
         // recover and only burn the sendAndWait timeout. Propagate so the pool can replace
         // the driver instead of retrying on a dead session.
         devTools.createSession();
-        devTools.send(Network.clearBrowserCache());
 
         runWithRetry(
             () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
@@ -577,14 +585,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         DevTools devTools = delegate.getDevTools();
         devTools.clearListeners();
         devTools.send(Network.clearBrowserCookies()); // just to be sure w clear out all cookies
-        // disconnectSession() used to be called here to kill off the existing CDP session so the
-        // next postInit() rebuilt a clean one. That cycle was reliable on Selenium 4.20 (the
-        // version the 4.1.0 TCK zip is frozen at), but starting somewhere in the 4.21..4.35 range
-        // the re-attach intermittently fails: postInit()'s createSession() silently times out,
-        // its Network.enable() retry loop spins for ~9 minutes, and BaseITNG.setUp throws
-        // TimeoutException. clearListeners() + clearBrowserCookies() above already drop the
-        // per-test state we actually need to reset; keeping the WebSocket alive avoids the
-        // re-attach race entirely.
+        devTools.send(Network.setExtraHTTPHeaders(new Headers(Map.of())));
+        // Keep the CDP session: on Selenium 4.35 a disconnect and re-attach in postInit() intermittently hangs createSession().
 
         cycleData.clear();
         lastGet = null;
