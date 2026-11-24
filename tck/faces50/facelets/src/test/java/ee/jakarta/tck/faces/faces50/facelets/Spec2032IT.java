@@ -72,6 +72,7 @@ class Spec2032IT extends BaseITNG {
         assertEquals("banner", captionCellRole);
         assertEquals("color: green;", theadFirstCellStyle);
         assertEquals("icon-header", theadFirstCellClass);
+        assertEquals(0, theadCells.get(0).findElements(By.xpath("./*")).size(), "the automatically created UIPanel renders nothing");
         assertEquals("", theadFirstCellTitle);
         assertEquals("", theadSecondCellStyle);
         assertEquals("", theadSecondCellClass);
@@ -86,7 +87,8 @@ class Spec2032IT extends BaseITNG {
 
     /**
      * The pass-through attributes of an f:facet go on the element which the renderer starts around the facet, and those of the facet component on its own
-     * markup. Neither gets those of the other. This holds on a postback and on an ajax re-render as well, and in every row of a UIData which preserves its row
+     * markup. Neither gets those of the other. This holds for a single child component, which is the facet component, and for several child components, which
+     * the automatically created UIPanel wraps. It holds on a postback and on an ajax re-render as well, and in every row of a UIData which preserves its row
      * state.
      *
      * @see https://github.com/jakartaee/faces/issues/2032
@@ -104,6 +106,47 @@ class Spec2032IT extends BaseITNG {
         assertFacetAndComponentPassThroughAttributes(page);
     }
 
+    /**
+     * The colgroups facet of h:dataTable has no element of its own around it, so the pass-through attributes of its f:facet are not rendered, neither on the
+     * table nor on the caption before it.
+     *
+     * @see https://github.com/jakartaee/faces/issues/2032
+     */
+    @Test
+    void testColgroupsFacetDoesNotRenderPassThroughAttributes() throws Exception {
+        var page = getPage("spec2032Colgroups.xhtml");
+
+        for (var id : new String[] { "captioned", "uncaptioned" }) {
+            var table = page.findElement(By.id(id));
+            assertEquals("", table.getAttribute("title"), id);
+            assertEquals(1, table.findElements(By.tagName("colgroup")).size(), id);
+        }
+
+        var caption = page.findElement(By.id("captioned")).findElement(By.tagName("caption"));
+        assertEquals("caption", caption.getAttribute("title"));
+    }
+
+    /**
+     * FacetHandler.getPassThroughAttributes() returns the pass-through attributes of the f:facet which created the facet component as an unmodifiable map, and
+     * an empty map for a component which no f:facet created. This holds on a postback as well.
+     *
+     * @see https://github.com/jakartaee/faces/issues/2032
+     */
+    @Test
+    void testFacetHandlerReturnsPassThroughAttributesOfFacet() throws Exception {
+        var page = getPage("spec2032Lookup.xhtml");
+        assertLookup(page);
+
+        page.guardHttp(page.findElement(By.id("form:submit"))::click);
+        assertLookup(page);
+    }
+
+    private static void assertLookup(WebPage page) {
+        assertEquals("{role=banner, title=facet}", page.findElement(By.id("form:facetAttributes")).getText());
+        assertEquals("true", page.findElement(By.id("form:unmodifiable")).getText());
+        assertEquals("{}", page.findElement(By.id("form:tableAttributes")).getText());
+    }
+
     private static void assertFacetAndComponentPassThroughAttributes(WebPage page) {
         var headerCell = page.findElement(By.id("form:mixed")).findElement(By.tagName("thead")).findElement(By.tagName("th"));
         var own = page.findElement(By.id("form:mixed:own"));
@@ -112,6 +155,19 @@ class Spec2032IT extends BaseITNG {
         assertEquals("", headerCell.getAttribute("lang"));
         assertEquals("en", own.getAttribute("lang"));
         assertEquals("", own.getAttribute("title"));
+
+        var multiHeaderCell = page.findElement(By.id("form:multi")).findElement(By.tagName("thead")).findElement(By.tagName("th"));
+        var first = page.findElement(By.id("form:multi:first"));
+        var second = page.findElement(By.id("form:multi:second"));
+
+        assertEquals("facet", multiHeaderCell.getAttribute("title"));
+        assertEquals("", multiHeaderCell.getAttribute("lang"));
+        assertEquals("", multiHeaderCell.getAttribute("dir"));
+        assertEquals("en", first.getAttribute("lang"));
+        assertEquals("", first.getAttribute("title"));
+        assertEquals("ltr", second.getAttribute("dir"));
+        assertEquals("", second.getAttribute("title"));
+        assertEquals(2, multiHeaderCell.findElements(By.xpath("./*")).size(), "the UIPanel around the children renders no element");
 
         for (int row = 0; row < 2; row++) {
             var gridHeaderCell = page.findElement(By.id("form:rows:" + row + ":grid")).findElement(By.tagName("th"));

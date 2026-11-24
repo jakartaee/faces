@@ -6925,7 +6925,9 @@ meth public final void applyAttachedObject(jakarta.faces.context.FacesContext,ja
 supr jakarta.faces.view.facelets.DelegatingMetaTagHandler
 
 CLSS public abstract interface jakarta.faces.view.facelets.FacetHandler
+fld public final static java.lang.String PASS_THROUGH_ATTRIBUTES_KEY = "jakarta.faces.FACET_PASSTHROUGH_ATTRIBUTES"
 meth public abstract java.lang.String getFacetName(jakarta.faces.view.facelets.FaceletContext)
+meth public static java.util.Map<java.lang.String,java.lang.Object> getPassThroughAttributes(jakarta.faces.component.UIComponent)
 
 CLSS public abstract jakarta.faces.view.facelets.MetaRule
 cons public init()
