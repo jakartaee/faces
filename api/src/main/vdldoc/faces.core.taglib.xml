@@ -2909,15 +2909,6 @@ public class BackingBean implements PasswordHolder, Cloneable {
                 valueChange(jakarta.faces.event.ValueChangeEvent)
             </method-signature>
         </attribute>
-        <attribute>
-            <description><![CDATA[
-                The maximum number of characters that may
-                be entered in this field.
-            ]]></description>
-            <name>maxlength</name>
-            <required>false</required>
-            <type>int</type>
-        </attribute>
     </tag>
 
     <tag>

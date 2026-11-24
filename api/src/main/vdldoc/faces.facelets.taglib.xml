@@ -981,7 +981,7 @@ attribute must be an absolute path starting with "/".</span>
 
             ]]></description>
             <name>value</name>
-            <required>true</required>
+            <required>false</required>
             <type>java.lang.Object</type>
         </attribute>
         <attribute>
@@ -996,7 +996,7 @@ attribute must be an absolute path starting with "/".</span>
                 ]]>
             </description>
             <name>var</name>
-            <required>true</required>
+            <required>false</required>
         </attribute>
         <attribute>
             <description>
