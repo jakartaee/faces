@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -413,6 +414,78 @@ public class UISelectManyTestCase extends UIInputTestCase {
     }
 
     /**
+     * An entry of a Map value with a <code>null</code> key gets an empty label, and one with a <code>null</code> value keeps it.
+     */
+    @Test
+    public void testSelectItemsIteratorMapNullKeyAndValue() {
+        UISelectMany selectMany = new UISelectMany();
+        selectMany.getChildren().add(selectItems(mapWithNulls()));
+
+        List<String> expected = List.of("a|Apple|null|false|true|false", "n||null|false|true|false", "null|Banana|null|false|true|false");
+        assertEquals(expected, describe(new SelectItemsIterator(facesContext, selectMany)));
+    }
+
+    /**
+     * A Map value of a UISelectItems nested in a UISelectItemGroups yields the same items as directly in the select component, with <code>var</code> exposing
+     * the Map.Entry while <code>itemValue</code> and <code>itemLabel</code> are evaluated.
+     */
+    @Test
+    public void testSelectItemGroupsNestedMapValue() {
+        UISelectItemGroups groups = new UISelectItemGroups();
+        groups.setValue(List.of("fruit"));
+        groups.getChildren().add(selectItems(mapWithNulls()));
+        UISelectItems labeled = selectItems(mapWithNulls());
+        labeled.getAttributes().put("var", "e");
+        labeled.setValueExpression("itemValue", expression("v#{e.value}"));
+        labeled.setValueExpression("itemLabel", expression("#{e.key}:#{e.value}"));
+        groups.getChildren().add(labeled);
+
+        @SuppressWarnings("unchecked")
+        SelectItemGroup group = ((List<SelectItemGroup>) groups.getValue()).get(0);
+
+        List<String> expected = List.of(
+            "a|Apple|null|false|true|false", "n||null|false|true|false", "null|Banana|null|false|true|false", "va|Apple:a|null|false|true|false",
+            "vn|:n|null|false|true|false", "v|Banana:|null|false|true|false"
+        );
+        assertEquals(expected, describe(Arrays.asList(group.getSelectItems()).iterator()));
+    }
+
+    /**
+     * A Map value of a UISelectItemGroups yields a group per entry, labeled with the key of the entry, or with an empty string when the key is
+     * <code>null</code>, unless <code>itemLabel</code> is set. The value of each group is the Map.Entry, also when <code>itemValue</code> is set, and
+     * <code>var</code> exposes it to the nested UISelectItems.
+     */
+    @Test
+    public void testSelectItemGroupsMapValue() {
+        Map<String, Map<String, String>> categories = new LinkedHashMap<>();
+        categories.put("fruit", Map.of("Apple", "a"));
+        categories.put(null, Map.of("Banana", "b"));
+        UISelectItemGroups groups = new UISelectItemGroups();
+        groups.setValue(categories);
+        groups.getAttributes().put("var", "category");
+        UISelectItems products = new UISelectItems();
+        products.setValueExpression("value", expression("#{category.value}"));
+        groups.getChildren().add(products);
+
+        @SuppressWarnings("unchecked")
+        List<SelectItemGroup> result = (List<SelectItemGroup>) groups.getValue();
+
+        assertEquals(List.of("fruit", ""), result.stream().map(SelectItem::getLabel).toList());
+        assertEquals(List.copyOf(categories.entrySet()), result.stream().map(SelectItem::getValue).toList());
+        assertEquals(List.of("a|Apple|null|false|true|false"), describe(Arrays.asList(result.get(0).getSelectItems()).iterator()));
+        assertEquals(List.of("b|Banana|null|false|true|false"), describe(Arrays.asList(result.get(1).getSelectItems()).iterator()));
+
+        groups.setValueExpression("itemLabel", expression("#{category.key}-label"));
+        groups.setValueExpression("itemValue", expression("#{category.key}"));
+
+        @SuppressWarnings("unchecked")
+        List<SelectItemGroup> labeled = (List<SelectItemGroup>) groups.getValue();
+
+        assertEquals(List.of("fruit-label", "-label"), labeled.stream().map(SelectItem::getLabel).toList());
+        assertEquals(List.copyOf(categories.entrySet()), labeled.stream().map(SelectItem::getValue).toList());
+    }
+
+    /**
      * With <code>var</code>, each item gets the no selection option of its own member: that of a SelectItem member, and none for a plain member after it.
      * <code>noSelectionValue</code> marks the item with that value, and a SelectItem member without value is no match for it.
      */
@@ -458,6 +531,14 @@ public class UISelectManyTestCase extends UIInputTestCase {
         UISelectItems items = new UISelectItems();
         items.setValue(value);
         return items;
+    }
+
+    private static Map<String, String> mapWithNulls() {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("Apple", "a");
+        map.put(null, "n");
+        map.put("Banana", null);
+        return map;
     }
 
     // Create an options list with nested groups

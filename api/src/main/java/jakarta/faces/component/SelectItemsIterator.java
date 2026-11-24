@@ -310,8 +310,8 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
             Map.Entry<?, ?> entry = iterator.next();
             Object key = entry.getKey();
             Object value = entry.getValue();
-            item.setLabel(key != null ? key.toString() : value.toString());
-            item.setValue(value != null ? value : "");
+            item.setLabel(PackageUtils.toLabel(key));
+            item.setValue(value);
             return getSelectItemFor(ctx, entry, item);
 
         }
