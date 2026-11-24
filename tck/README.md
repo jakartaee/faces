@@ -134,7 +134,7 @@ mvn clean verify -T4 -Dglassfish.home=/path/to/glassfish
 | --- | --- |
 | `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
 | `-T8` | Eight Maven threads. Pool grows on demand to match. |
-| `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
+| `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. Every module waits at `initialize` until all N are up, so a full build is slower than with on-demand growth. |
 | `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from the existing install at the given path. The Mojarra overlay still applies (writes `mojarra.jar` into `${glassfish.home}/glassfish/modules/`); combine with `-Dmojarra.noupdate=true` to skip that too. |
 | `-DskipTests` / `-Dmaven.test.skip` | Skip the entire pool lifecycle (dist unpack + Mojarra overlay + slot bootstrap), in addition to skipping tests. Use when you only want a clean compile/package without paying the pool cost. |
 | `-Dmojarra.version=X.Y.Z` | Test against a specific Mojarra release/snapshot. |
@@ -195,14 +195,10 @@ and the failsafe log cascades with
 The pool's per-test recovery absorbs single failures, but back-to-back
 exhaustion will error individual ITs.
 
-The pool grows on demand to match concurrent demand, so `-TN` naturally
-caps growth at N (each test JVM only ever leases one slot). To skip the
-warm-up cost of growing one slot at a time on cold builds, pre-provision
-the pool with `gf.pool.size`:
-
-```bash
-mvn clean verify -T8 -Dgf.pool.size=8
-```
+The pool grows on demand to match concurrent demand, so `-TN` naturally caps growth at N (each test JVM only ever leases one slot).
+On-demand growth overlaps the build: slot 1 boots while the first modules compile, and the remaining slots boot in parallel while those modules package.
+Pre-provisioning with `-Dgf.pool.size=N` does not overlap: the pool comes up at `initialize`, and every module waits there until all N slots are up.
+So leave `gf.pool.size` at its default for a full build.
 
 ## Pool lifecycle helpers
 

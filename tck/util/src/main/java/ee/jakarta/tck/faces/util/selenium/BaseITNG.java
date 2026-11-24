@@ -39,7 +39,6 @@ import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
@@ -134,22 +133,6 @@ public abstract class BaseITNG implements ExecutionCondition {
             driverPool.returnInstance(webDriver);
             webDriver = null;
         }
-    }
-
-    /**
-     * Discards the current test's WebDriver (quit and removed from the pool) instead of returning it for reuse. For tests whose per-test driver state cannot be
-     * cleared by {@link DriverPool#returnInstance} — e.g. additive request headers.
-     */
-    protected void discardWebDriver() {
-        if (webDriver != null) {
-            driverPool.quitInstance(webDriver);
-            webDriver = null;
-        }
-    }
-
-    @AfterAll
-    static void afterAll() {
-        driverPool.quitAll();
     }
 
     protected WebPage getPage(String page) {

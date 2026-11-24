@@ -15,6 +15,8 @@
  */
 package ee.jakarta.tck.faces.util.selenium;
 
+import static java.util.logging.Level.WARNING;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -34,6 +36,13 @@ public class DriverPool {
     ConcurrentLinkedQueue<ExtendedWebDriver> availableDrivers = new ConcurrentLinkedQueue<>();
 
     private volatile Future<ExtendedWebDriver> warming;
+
+    /**
+     * Creates the pool and quits all its drivers at JVM shutdown, so the test classes of one test JVM share their browsers.
+     */
+    public DriverPool() {
+        Runtime.getRuntime().addShutdownHook(new Thread(this::quitAll, "DriverPool-quitAll"));
+    }
 
     /**
      * Eagerly boots one Chrome instance on a background thread so the cold start (the Chrome process launch in {@link ChromeDevtoolsDriver#stdInit}) overlaps
@@ -152,9 +161,16 @@ public class DriverPool {
     /**
      * cleans up the pool
      */
-    public void quitAll() {
+    public synchronized void quitAll() {
         takeWarming(); // drain any pending pre-warm into allDrivers so it gets quit too
-        allDrivers.stream().forEach(ExtendedWebDriver::quit);
+        for (ExtendedWebDriver driver : allDrivers) {
+            try {
+                driver.quit();
+            }
+            catch (RuntimeException e) {
+                LOG.log(WARNING, "Ignoring failure to quit driver", e);
+            }
+        }
         allDrivers.clear();
         availableDrivers.clear();
     }

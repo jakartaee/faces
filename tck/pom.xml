@@ -445,7 +445,7 @@
                             </java>
                             <css>
                                 <includes>
-                                    <include>**/src/**/*.css</include>
+                                    <include>src/**/*.css</include>
                                 </includes>
                                 <excludes>
                                     <exclude>**/target/**</exclude>
@@ -458,7 +458,7 @@
                             </css>
                             <javascript>
                                 <includes>
-                                    <include>**/src/**/*.js</include>
+                                    <include>src/**/*.js</include>
                                 </includes>
                                 <excludes>
                                     <exclude>**/target/**</exclude>
@@ -473,8 +473,8 @@
                                 <format>
                                     <includes>
                                         <include>pom.xml</include>
-                                        <include>**/src/**/*.xml</include>
-                                        <include>**/src/**/*.xhtml</include>
+                                        <include>src/**/*.xml</include>
+                                        <include>src/**/*.xhtml</include>
                                     </includes>
                                     <excludes>
                                         <exclude>**/target/**</exclude>
@@ -523,14 +523,10 @@
 
             <plugin>
                 <!--
-                    Override the cyclonedx-maven-plugin execution inherited from
-                    the org.eclipse.ee4j:project parent's 'sbom' profile so the
-                    reactor produces ONE aggregate SBOM (at the root) instead of
-                    re-running makeAggregateBom in every module. The mojo is
-                    @aggregator and walks the full reactor dep graph each time,
-                    which serialised every parallel `mvn -TN` build with
-                    "aggregator mojo is already being executed" warnings while
-                    other builders parked. Skip the whole thing with -DskipSBOM.
+                    Disables the per-module cyclonedx-maven-plugin execution of the org.eclipse.ee4j:project
+                    parent's release profiles. makeAggregateBom is an @aggregator mojo walking the full reactor,
+                    so a per-module execution serializes a parallel `mvn -TN` build. The oss-release profile
+                    below produces the one aggregate SBOM.
                 -->
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
@@ -541,15 +537,6 @@
                     <execution>
                         <id>default</id>
                         <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <!-- Run once on the root reactor build only. -->
-                        <id>aggregate-bom-root</id>
-                        <inherited>false</inherited>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>makeAggregateBom</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -666,6 +653,32 @@
 
         <profile>
             <id>custom</id>
+        </profile>
+
+        <!--
+            The aggregate SBOM is a release artifact. It runs on the root, which every module waits for,
+            so it stays out of the test build.
+        -->
+        <profile>
+            <id>oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>aggregate-bom-root</id>
+                                <inherited>false</inherited>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>makeAggregateBom</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
         <!--
